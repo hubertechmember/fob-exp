@@ -19,8 +19,7 @@ const getAnxietyDescription = (level: number): string => {
   if (level <= 80) return "Very intense anxiety, hard to think clearly";
   if (level <= 90) return "Severe anxiety, almost at panic level";
   return "Extreme anxiety, maximum distress";
-  );
-}
+};
 
 export default function SUDLevelsSetup({ mode, onComplete }: SUDLevelsSetupProps) {
   const [sudLevel, setSudLevel] = useState<number>(50);
