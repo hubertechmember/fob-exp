@@ -165,11 +165,11 @@ const SessionQuickStart = () => {
           <Info className="text-blue-600 mt-1 flex-shrink-0" size={20} />
           <div>
             <p className="text-blue-800 font-medium">
-              Scenariusze dopasowane do Twojego poziomu lęku społecznego (umiarkowany)
+              Scenarios matched to your social anxiety level (moderate)
             </p>
             <p className="text-blue-700 text-sm mt-1">
-              Wybraliśmy dla Ciebie scenariusze o niższym poziomie trudności, 
-              które pozwolą na bezpieczne i stopniowe oswajanie się z sytuacjami społecznymi.
+              We've selected scenarios with a lower difficulty level for you,
+              allowing for safe and gradual adaptation to social situations.
             </p>
           </div>
         </div>
@@ -258,7 +258,7 @@ const SessionQuickStart = () => {
               className="w-full bg-teal-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-teal-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Play size={20} />
-              Rozpocznij wybrany scenariusz
+              Start selected scenario
             </button>
           ) : (
             <div className="space-y-4">
@@ -295,7 +295,7 @@ const SessionQuickStart = () => {
                 className="w-full bg-teal-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-teal-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Play size={20} />
-                Rozpocznij sesję
+                Start session
               </button>
             </div>
           )}
