@@ -113,10 +113,10 @@ const LSASResults = () => {
       {/* Detailed Scores */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h3 className="font-medium text-gray-800 mb-2">Poziom lęku</h3>
+          <h3 className="font-medium text-gray-800 mb-2">Anxiety Level</h3>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Wynik częściowy:</span>
+              <span className="text-gray-600">Partial score:</span>
               <span className="font-medium">{Math.round(score/2)}/72</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
@@ -129,10 +129,10 @@ const LSASResults = () => {
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h3 className="font-medium text-gray-800 mb-2">Poziom unikania</h3>
+          <h3 className="font-medium text-gray-800 mb-2">Avoidance Level</h3>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Wynik częściowy:</span>
+              <span className="text-gray-600">Partial score:</span>
               <span className="font-medium">{Math.round(score/2)}/72</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
