@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Play, Clock, AlertCircle, CheckCircle, Info, Star, Lock, Unlock } from 'lucide-react';
 import type { SceneConfig } from '@/types/scenes';
 
 const SessionQuickStart = () => {
+  const router = useRouter();
   const [isReadinessChecked, setIsReadinessChecked] = useState(false);
   const [selectedScenario, setSelectedScenario] = useState<SceneConfig | null>(null);
   const [lsasScore, setLsasScore] = useState<number>(0);
