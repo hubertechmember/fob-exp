@@ -18,53 +18,53 @@ const LSASResults = () => {
   // Funkcja określająca wariant wyniku
   const getResultVariant = (score: number) => {
     if (score <= 54) return {
-      level: 'Brak fobii społecznej',
+      level: 'No social phobia',
       color: 'green',
-      description: 'Twój wynik wskazuje na brak klinicznej fobii społecznej. Możemy skupić się na prewencji i dalszym rozwoju umiejętności społecznych.',
+      description: 'Your score indicates no clinical social phobia. We can focus on prevention and further development of social skills.',
       nextSteps: [
-        'Dobrowolne sesje ekspozycji dla rozwoju',
-        'Techniki zarządzania stresem',
-        'Budowanie pewności siebie'
+        'Optional exposure sessions for development',
+        'Stress management techniques',
+        'Building self-confidence'
       ]
     };
     if (score <= 65) return {
-      level: 'Łagodna fobia społeczna',
+      level: 'Mild social phobia',
       color: 'yellow',
-      description: 'Doświadczasz łagodnych objawów lęku społecznego. To dobry moment na rozpoczęcie terapii, zanim objawy się nasilą.',
+      description: 'You are experiencing mild symptoms of social anxiety. This is a good time to start therapy before symptoms intensify.',
       nextSteps: [
-        'Rozpoczęcie od łagodnych ekspozycji',
-        'Nauka technik relaksacyjnych',
-        'Regularne sesje terapeutyczne'
+        'Starting with mild exposures',
+        'Learning relaxation techniques',
+        'Regular therapy sessions'
       ]
     };
     if (score <= 80) return {
-      level: 'Umiarkowana fobia społeczna',
+      level: 'Moderate social phobia',
       color: 'orange',
-      description: 'Twój poziom lęku społecznego jest umiarkowany. Terapia ekspozycyjna może znacząco poprawić jakość Twojego życia.',
+      description: 'Your level of social anxiety is moderate. Exposure therapy can significantly improve your quality of life.',
       nextSteps: [
-        'Regularna terapia ekspozycyjna',
-        'Praca z automatycznymi myślami',
-        'Stopniowe zwiększanie trudności ekspozycji'
+        'Regular exposure therapy',
+        'Working with automatic thoughts',
+        'Gradual increase in exposure difficulty'
       ]
     };
     if (score <= 95) return {
-      level: 'Nasilona fobia społeczna',
+      level: 'Severe social phobia',
       color: 'red',
-      description: 'Doświadczasz znaczącego lęku społecznego. Zalecamy systematyczną pracę terapeutyczną w bezpiecznym środowisku.',
+      description: 'You are experiencing significant social anxiety. We recommend systematic therapeutic work in a safe environment.',
       nextSteps: [
-        'Intensywna terapia ekspozycyjna',
-        'Regularne wsparcie terapeuty',
-        'Praca nad podstawowymi sytuacjami'
+        'Intensive exposure therapy',
+        'Regular therapist support',
+        'Working on basic situations'
       ]
     };
     return {
-      level: 'Bardzo nasilona fobia społeczna',
+      level: 'Very severe social phobia',
       color: 'red',
-      description: 'Twój poziom lęku społecznego jest bardzo wysoki. Rozpoczniemy od małych, bezpiecznych kroków w kontrolowanym środowisku.',
+      description: 'Your level of social anxiety is very high. We will start with small, safe steps in a controlled environment.',
       nextSteps: [
-        'Terapia w najbardziej komfortowym tempie',
-        'Częste sesje wsparcia',
-        'Rozpoczęcie od najprostszych ekspozycji'
+        'Therapy at the most comfortable pace',
+        'Frequent support sessions',
+        'Starting with the simplest exposures'
       ]
     };
   };
@@ -89,10 +89,10 @@ const LSASResults = () => {
       {/* Header */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl font-bold text-gray-800">
-          Wyniki oceny LSAS
+          LSAS Assessment Results
         </h1>
         <p className="text-gray-600">
-          Dziękujemy za wypełnienie kwestionariusza. Oto Twoje wyniki i kolejne kroki.
+          Thank you for completing the questionnaire. Here are your results and next steps.
         </p>
       </div>
 
@@ -101,7 +101,7 @@ const LSASResults = () => {
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-xl font-semibold">{result.level}</h2>
-            <p className="mt-1 text-sm opacity-90">Wynik całkowity: {score}/144 punktów</p>
+            <p className="mt-1 text-sm opacity-90">Total score: {score}/144 points</p>
           </div>
           <div className="h-16 w-16 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
             <TrendingUp size={24} />
@@ -147,7 +147,7 @@ const LSASResults = () => {
 
       {/* Next Steps */}
       <div className="bg-white p-6 rounded-lg shadow-sm space-y-4">
-        <h3 className="font-medium text-gray-800">Następne kroki</h3>
+        <h3 className="font-medium text-gray-800">Next Steps</h3>
         <div className="space-y-3">
           {result.nextSteps.map((step, index) => (
             <div key={index} className="flex items-center gap-3 text-gray-700">
@@ -165,11 +165,11 @@ const LSASResults = () => {
           className="flex items-center justify-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
         >
           <Play size={20} />
-          Rozpocznij pierwszą sesję
+          Start first session
         </button>
         <button className="flex items-center justify-center gap-2 bg-white text-teal-600 px-6 py-3 rounded-lg border-2 border-teal-600 hover:bg-teal-50 transition-colors">
           <Download size={20} />
-          Pobierz raport PDF
+          Download PDF report
         </button>
       </div>
 
@@ -177,7 +177,7 @@ const LSASResults = () => {
       {score <= 54 && (
         <div className="text-center">
           <button className="text-gray-600 hover:text-gray-800 transition-colors">
-            Pomiń planowanie sesji i przejdź dalej
+            Skip session planning and continue
           </button>
         </div>
       )}

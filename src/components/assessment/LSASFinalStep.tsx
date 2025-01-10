@@ -34,8 +34,8 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
       {/* Progress bar */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm text-gray-600">
-          <span>Ostatnia sytuacja (24 z 24)</span>
-          <span>96% ukończono</span>
+          <span>Final situation (24 of 24)</span>
+          <span>96% completed</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
@@ -49,7 +49,7 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
       <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
         <div className="flex items-center gap-2 text-teal-800">
           <CheckCircle size={20} />
-          <span className="font-medium">Prawie gotowe! Odpowiedziałeś już na 23 z 24 sytuacji.</span>
+          <span className="font-medium">Almost done! You've answered 23 out of 24 situations.</span>
         </div>
       </div>
 
@@ -57,16 +57,16 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
       <div className="bg-white p-6 rounded-lg shadow-sm space-y-6">
         <div className="space-y-2">
           <h2 className="text-xl font-semibold text-gray-800">
-            Opieranie się natrętnemu sprzedawcy
+            Resisting a pushy salesperson
           </h2>
           <p className="text-gray-600 text-sm">
-            Np. odmowa zakupu, asertywne stawianie granic
+            E.g., refusing to buy, assertively setting boundaries
           </p>
         </div>
 
         {/* Fear rating */}
         <div className="space-y-4">
-          <h3 className="font-medium text-gray-800">Poziom lęku lub strachu:</h3>
+          <h3 className="font-medium text-gray-800">Level of fear or anxiety:</h3>
           <div className="grid grid-cols-4 gap-2">
             {[0, 1, 2, 3].map((value) => (
               <button
@@ -80,10 +80,10 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
               >
                 <div className="text-lg font-bold text-center">{value}</div>
                 <div className="text-sm text-gray-600">
-                  {value === 0 && "Brak"}
-                  {value === 1 && "Łagodny"}
-                  {value === 2 && "Umiarkowany"}
-                  {value === 3 && "Silny"}
+                  {value === 0 && "None"}
+                  {value === 1 && "Mild"}
+                  {value === 2 && "Moderate"}
+                  {value === 3 && "Severe"}
                 </div>
               </button>
             ))}
@@ -92,7 +92,7 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
 
         {/* Avoidance rating */}
         <div className="space-y-4">
-          <h3 className="font-medium text-gray-800">Częstość unikania:</h3>
+          <h3 className="font-medium text-gray-800">Frequency of avoidance:</h3>
           <div className="grid grid-cols-4 gap-2">
             {[0, 1, 2, 3].map((value) => (
               <button
@@ -106,10 +106,10 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
               >
                 <div className="text-lg font-bold text-center">{value}</div>
                 <div className="text-sm text-gray-600">
-                  {value === 0 && "Nigdy (0%)"}
-                  {value === 1 && "Niekiedy (1-33%)"}
-                  {value === 2 && "Często (34-66%)"}
-                  {value === 3 && "Zawsze (67-100%)"}
+                  {value === 0 && "Never (0%)"}
+                  {value === 1 && "Occasionally (1-33%)"}
+                  {value === 2 && "Often (34-66%)"}
+                  {value === 3 && "Always (67-100%)"}
                 </div>
               </button>
             ))}
@@ -123,12 +123,12 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
           <AlertCircle className="text-blue-600 mt-1" size={20} />
           <div className="space-y-1">
             <p className="text-blue-800 font-medium">
-              Przed zakończeniem możesz:
+              Before finishing you can:
             </p>
             <ul className="text-sm text-blue-700 list-disc list-inside">
-              <li>Przejrzeć swoje poprzednie odpowiedzi używając przycisku "Poprzednia"</li>
-              <li>Zapisać postęp i wrócić później</li>
-              <li>Zakończyć test i zobaczyć wyniki</li>
+              <li>Review your previous answers using the "Previous" button</li>
+              <li>Save your progress and return later</li>
+              <li>Complete the test and see your results</li>
             </ul>
           </div>
         </div>
@@ -141,7 +141,7 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
           className="flex items-center gap-2 px-4 py-2 text-gray-600"
         >
           <ArrowLeft size={20} />
-          Poprzednia
+          Previous
         </button>
 
         <button
@@ -149,7 +149,7 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
           className="flex items-center gap-2 px-4 py-2 text-teal-600"
         >
           <Save size={20} />
-          Zapisz i wyjdź
+          Save and exit
         </button>
 
         <button
@@ -157,7 +157,7 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
           disabled={!answers.fear || !answers.avoidance}
           className="flex items-center gap-2 px-8 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Zakończ i zobacz wyniki
+          Finish and see results
           <ArrowRight size={20} />
         </button>
       </div>

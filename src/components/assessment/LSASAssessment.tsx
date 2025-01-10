@@ -17,16 +17,16 @@ type Answers = {
 
 const scaleDescriptions = {
   fear: {
-    0: "Brak",
-    1: "Łagodny",
-    2: "Umiarkowany",
-    3: "Silny"
+    0: "None",
+    1: "Mild",
+    2: "Moderate",
+    3: "Severe"
   },
   avoidance: {
-    0: "Nigdy (0%)",
-    1: "Niekiedy (1-33%)",
-    2: "Często (34-66%)",
-    3: "Zawsze (67-100%)"
+    0: "Never (0%)",
+    1: "Occasionally (1-33%)",
+    2: "Often (34-66%)",
+    3: "Always (67-100%)"
   }
 } as const;
 
@@ -94,8 +94,8 @@ const LSASAssessment = () => {
       {/* Progress bar */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm text-gray-600">
-          <span>Sytuacja {currentStep + 1} z {lsasQuestions.length}</span>
-          <span>{Math.round((currentStep / (lsasQuestions.length - 1)) * 100)}% ukończono</span>
+          <span>Situation {currentStep + 1} of {lsasQuestions.length}</span>
+          <span>{Math.round((currentStep / (lsasQuestions.length - 1)) * 100)}% completed</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
@@ -121,7 +121,7 @@ const LSASAssessment = () => {
           <div key={type} className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-medium text-gray-800">
-                {type === 'fear' ? 'Poziom lęku lub strachu:' : 'Częstość unikania:'}
+                {type === 'fear' ? 'Level of fear or anxiety:' : 'Frequency of avoidance:'}
               </h3>
               <button className="text-teal-600 hover:text-teal-700">
                 <HelpCircle size={20} />
@@ -159,7 +159,7 @@ const LSASAssessment = () => {
           className="flex items-center gap-2 px-4 py-2 text-gray-600 disabled:opacity-50"
         >
           <ArrowLeft size={20} />
-          Poprzednia
+          Previous
         </button>
 
         <button
@@ -167,7 +167,7 @@ const LSASAssessment = () => {
           className="flex items-center gap-2 px-4 py-2 text-teal-600"
         >
           <Save size={20} />
-          Zapisz i wyjdź
+          Save and exit
         </button>
 
         <button
@@ -179,7 +179,7 @@ const LSASAssessment = () => {
           disabled={!canProceed}
           className="flex items-center gap-2 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {currentStep === lsasQuestions.length - 1 ? 'Zakończ' : 'Następna'}
+          {currentStep === lsasQuestions.length - 1 ? 'Finish' : 'Next'}
           <ArrowRight size={20} />
         </button>
       </div>
