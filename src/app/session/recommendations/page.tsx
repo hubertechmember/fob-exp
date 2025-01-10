@@ -1,9 +1,10 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import VATRecommendations from '@/components/session/VATRecommendations';
 
-export default function RecommendationsPage() {
+function RecommendationsContent() {
   const searchParams = useSearchParams();
   const vatScore = parseFloat(searchParams.get('vatScore') || '0');
   const recommendation = searchParams.get('recommendation') as 'proceed' | 'repeat' | 'previous';
@@ -13,5 +14,13 @@ export default function RecommendationsPage() {
       vatScore={vatScore}
       recommendation={recommendation}
     />
+  );
+}
+
+export default function RecommendationsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RecommendationsContent />
+    </Suspense>
   );
 }
