@@ -159,8 +159,8 @@ const LSASAssessment = () => {
                 </button>
                 <div className="absolute right-0 w-64 p-3 mt-2 text-sm bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
                   {type === 'fear' 
-                    ? "If you're unsure about rating your fear level, consider discussing specific situations with your therapist to better understand your anxiety patterns."
-                    : "If you're uncertain about how often you avoid situations, your therapist can help analyze your behavioral patterns and provide guidance on assessment."
+                    ? "If you're unsure about rating your fear level, discuss these specific situations with your therapist during this session to better understand your anxiety patterns."
+                    : "If you're uncertain about how often you avoid situations, your therapist can help analyze your behavioral patterns and provide guidance during this session."
                   }
                 </div>
               </div>
