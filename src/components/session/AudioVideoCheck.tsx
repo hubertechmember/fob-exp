@@ -28,9 +28,15 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
       
       <div className="space-y-6">
         {/* Test video player placeholder */}
-        <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+        <button 
+          onClick={() => {
+            // Here you would toggle video play/pause
+            console.log('Toggle video playback');
+          }}
+          className="w-full aspect-video bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer"
+        >
           <Play className="text-gray-400" size={48} />
-        </div>
+        </button>
 
         {/* Checks */}
         <div className="space-y-4">
