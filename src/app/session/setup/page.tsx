@@ -56,7 +56,7 @@ export default function SessionSetup() {
           )}
           
           {currentStep === SetupStep.SUD_LEVELS && (
-            <SUDLevelsSetup onComplete={handleSUDComplete} />
+            <SUDLevelsSetup onComplete={handleSUDComplete} mode="pre" />
           )}
           
           {currentStep === SetupStep.SCENE_PREPARATION && (
