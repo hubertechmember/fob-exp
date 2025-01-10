@@ -16,6 +16,6 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  title: 'Fobos VR',
-  description: 'Terapia VR lęku społecznego',
+  title: 'Fobos VR - Terapia z profesjonalistą',
+  description: 'Profesjonalna terapia VR lęku społecznego pod nadzorem wykwalifikowanego terapeuty',
 };
