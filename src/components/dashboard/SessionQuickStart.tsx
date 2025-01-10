@@ -178,7 +178,7 @@ const SessionQuickStart = () => {
       {/* Rekomendowane scenariusze */}
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-gray-800">
-          Wybierz scenariusz do rozpoczęcia:
+          Choose a scenario to begin:
         </h2>
         <div className="grid gap-4">
           {recommendedScenarios.map((scenario) => (
@@ -248,7 +248,7 @@ const SessionQuickStart = () => {
         {/* Natychmiastowy start */}
         <div className="bg-teal-50 p-6 rounded-lg border-2 border-teal-100">
           <h2 className="text-xl font-semibold text-gray-800 mb-3">
-            Rozpocznij teraz
+            Start Now
           </h2>
           
           {!isReadinessChecked ? (
