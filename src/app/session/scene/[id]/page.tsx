@@ -21,7 +21,27 @@ export default function ScenePage() {
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
   const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
   const [vatResult, setVatResult] = useState<VATResult | null>(null);
+  const [countdown, setCountdown] = useState(5);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (isPlaying && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown(prev => prev - 1);
+      }, 1000);
+    } else if (isPlaying && countdown === 0) {
+      timer = setInterval(() => {
+        setElapsedTime(prev => prev + 1);
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isPlaying, countdown]);
 
   useEffect(() => {
     // In real app, fetch scene details from API
@@ -41,8 +61,11 @@ export default function ScenePage() {
   const handlePlayPause = () => {
     if (isPlaying) {
       setShowSUDPrompt(true);
+      setIsPlaying(false);
+    } else {
+      setCountdown(5);
+      setIsPlaying(true);
     }
-    setIsPlaying(!isPlaying);
   };
 
   const handleStop = () => {
@@ -156,7 +179,17 @@ export default function ScenePage() {
           {/* Scene placeholder with VAT metrics */}
           <div className="bg-white p-8 rounded-lg border border-slate-200 text-center">
             <div className="text-4xl font-bold text-gray-800 mb-4">
-              {isPlaying ? "Scene in progress..." : "Scene paused"}
+              {countdown > 0 ? (
+                `Starting in ${countdown}...`
+              ) : isPlaying ? (
+                "Scene in progress..."
+              ) : (
+                "Scene paused"
+              )}
+            </div>
+            <div className="text-2xl font-mono text-gray-600 mb-4">
+              {String(Math.floor(elapsedTime / 60)).padStart(2, '0')}:
+              {String(elapsedTime % 60).padStart(2, '0')}
             </div>
             <div className="space-y-2">
               <p className="text-gray-600">
