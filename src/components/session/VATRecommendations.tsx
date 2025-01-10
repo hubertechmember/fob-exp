@@ -15,7 +15,27 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
   recommendation 
 }) => {
   const router = useRouter();
-  const [scenes, setScenes] = React.useState<SceneConfig[]>([]);
+  const [scenes, setScenes] = useState<SceneConfig[]>([]);
+  const [isAdminMode, setIsAdminMode] = useState(false);
+
+  // Admin mode key sequence detection
+  useEffect(() => {
+    const keys: string[] = [];
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      keys.push(e.key.toLowerCase());
+      if (keys.length > ADMIN_KONAMI.length) {
+        keys.shift();
+      }
+      if (keys.join('') === ADMIN_KONAMI) {
+        setIsAdminMode(true);
+        setScenes(prev => enableAdminMode(prev));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   React.useEffect(() => {
     // In real app, fetch from API
@@ -146,7 +166,13 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
                       </div>
                     </div>
                     
-                    {isAvailable ? (
+                    {isAdminMode && (
+                      <div className="text-xs text-purple-600 mb-2 flex items-center gap-1">
+                        <Unlock size={12} />
+                        Admin Mode
+                      </div>
+                    )}
+                    {isAvailable || isAdminMode ? (
                       <button
                         onClick={() => router.push(`/session/setup?sceneId=${scene.id}`)}
                         className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 flex items-center gap-2"
