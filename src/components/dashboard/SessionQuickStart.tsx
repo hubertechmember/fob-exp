@@ -14,7 +14,7 @@ const SessionQuickStart = () => {
     benefits: string[];
   }>(null);
   
-  // Lista scenariuszy dopasowanych do poziomu lęku
+  // Scenarios tailored to anxiety level
   const recommendedScenarios = [
     {
       id: 1,
