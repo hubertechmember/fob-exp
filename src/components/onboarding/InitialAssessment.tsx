@@ -3,26 +3,19 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
-import InitialAssessmentSVG from './InitialAssessmentSVG';
-
 const InitialAssessment = () => {
   const router = useRouter();
 
   return (
     <div className="max-w-3xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
-        <div className="flex justify-between items-start">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Initial Assessment (LSAS)
-            </h2>
-            <p className="text-gray-600">
-              Before we begin, we would like to better understand your experiences with social anxiety.
-            </p>
-          </div>
-          <div className="w-32">
-            <InitialAssessmentSVG />
-          </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Initial Assessment (LSAS)
+          </h2>
+          <p className="text-gray-600">
+            Before we begin, we would like to better understand your experiences with social anxiety.
+          </p>
         </div>
 
         <div className="space-y-4">
