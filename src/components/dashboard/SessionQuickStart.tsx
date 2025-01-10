@@ -49,11 +49,11 @@ const SessionQuickStart = () => {
   };
 
   const getRecommendedScenarios = (score: number): SceneConfig[] => {
-    if (score <= 54) {
+    if (score >= 80) {
       return [
         {
           id: "123405",
-          title: "Pre-presentation Waiting (Gentle)",
+          title: "Quiet Observation (Very Gentle)",
           duration: "5 min",
           difficulty: "Gentle",
           category: "Conference",
@@ -76,7 +76,7 @@ const SessionQuickStart = () => {
           locked: false
         }
       ];
-    } else if (score <= 80) {
+    } else if (score >= 55) {
       return [
         {
           id: "124222",
@@ -135,12 +135,13 @@ const SessionQuickStart = () => {
 
   const recommendedScenarios = getRecommendedScenarios(lsasScore);
 
-  // Lista kontrolna gotowości
+  // Readiness checklist
   const readinessChecklist = [
-    { id: 1, text: "Mam około 20-30 minut spokojnego czasu", essential: true },
-    { id: 2, text: "Jestem w cichym, prywatnym miejscu", essential: true },
-    { id: 3, text: "Mam na sobie wygodne słuchawki (opcjonalnie)", essential: false },
-    { id: 4, text: "Czuję się względnie wypoczęty/a", essential: true }
+    { id: 1, text: "I have about 20-30 minutes of quiet time", essential: true },
+    { id: 2, text: "I am in a quiet, private place", essential: true },
+    { id: 3, text: "I have comfortable headphones on (optional)", essential: false },
+    { id: 4, text: "I feel relatively rested", essential: true },
+    { id: 5, text: "I have my therapist's support for this session", essential: true }
   ];
 
   const [checkedItems, setCheckedItems] = useState<{[key: number]: boolean}>({});
@@ -282,19 +283,19 @@ const SessionQuickStart = () => {
           )}
         </div>
 
-        {/* Safety Info z informacją o terapeucie */}
+        {/* Safety Info with therapist information */}
         <div className="bg-orange-50 p-4 rounded-lg">
           <div className="flex gap-3">
             <AlertCircle className="text-orange-600 mt-1 flex-shrink-0" size={20} />
             <div>
               <p className="text-orange-800 font-medium">
-                Ważne przypomnienie:
+                Important safety reminders:
               </p>
               <ul className="mt-2 space-y-2 text-sm text-orange-700 list-disc list-inside">
-                <li>Upewnij się, że masz wsparcie swojego terapeuty podczas realizacji sesji</li>
-                <li>Możesz przerwać sesję w dowolnym momencie</li>
-                <li>Całkowicie kontrolujesz tempo ekspozycji</li>
-                <li>Pierwszy scenariusz jest maksymalnie bezpieczny</li>
+                <li>You can pause or stop the session at any time</li>
+                <li>You have complete control over the exposure pace</li>
+                <li>The first scenario is designed to be maximally safe</li>
+                <li>Remember to follow your therapist's guidance during the session</li>
               </ul>
             </div>
           </div>
