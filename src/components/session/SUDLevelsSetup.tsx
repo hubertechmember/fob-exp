@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 
 interface SUDLevelsSetupProps {
-  onComplete: (initialSUD: number) => void;
-  mode?: 'initial' | 'paused' | 'stopped';
+  mode: 'initial' | 'during' | 'final';
+  onComplete: (level: number) => void;
 }
 
 const getAnxietyDescription = (level: number): string => {
@@ -21,7 +21,7 @@ const getAnxietyDescription = (level: number): string => {
   return "Extreme anxiety, maximum distress";
 };
 
-export default function SUDLevelsSetup({ onComplete, mode = 'initial' }: SUDLevelsSetupProps) {
+const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ mode, onComplete }) => {
   const [sudLevel, setSudLevel] = useState<number>(50);
 
   return (
@@ -29,15 +29,15 @@ export default function SUDLevelsSetup({ onComplete, mode = 'initial' }: SUDLeve
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-800">
           {mode === 'initial' && 'Initial Anxiety Level Setup'}
-          {mode === 'paused' && 'Current Anxiety Level'}
-          {mode === 'stopped' && 'Final Anxiety Assessment'}
+          {mode === 'during' && 'Current Anxiety Level'}
+          {mode === 'final' && 'Final Anxiety Assessment'}
         </h2>
         <p className="text-gray-600">
           {mode === 'initial' && 'Please indicate your current anxiety level on a scale from 0 to 100:'}
-          {mode === 'paused' && 'While the scene is paused, please rate your current anxiety level:'}
-          {mode === 'stopped' && 'Now that you've ended the session, please rate your final anxiety level:'}
+          {mode === 'during' && 'While the scene is paused, please rate your current anxiety level:'}
+          {mode === 'final' && 'Now that you've ended the session, please rate your final anxiety level:'}
         </p>
-        {mode === 'stopped' && (
+        {mode === 'final' && (
           <div className="bg-blue-50 p-4 rounded-lg">
             <div className="flex gap-3">
               <AlertCircle className="text-blue-600 flex-shrink-0" />
