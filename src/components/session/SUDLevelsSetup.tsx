@@ -84,14 +84,27 @@ const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({
         <div className="text-center space-y-2">
           <span className="text-2xl font-bold text-teal-600">{sudLevel}</span>
           <p className="text-sm text-gray-600">{getAnxietyDescription(sudLevel)}</p>
-          {mode === 'final' && vatScore !== null && (
+          {mode === 'final' && (
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm font-medium text-gray-700">Projected VAT Score</p>
-              <p className="text-2xl font-bold text-teal-600">{vatScore.toFixed(1)}</p>
-              <p className="text-xs text-gray-500 mt-1">
-                Based on initial SUD: {initialSUD}, length ratio: {(lengthRatio * 100).toFixed(0)}%, 
-                awareness ratio: {(awarenessRatio * 100).toFixed(0)}%
-              </p>
+              {vatScore !== null ? (
+                <>
+                  <p className="text-sm font-medium text-gray-700">Projected VAT Score</p>
+                  <p className="text-2xl font-bold text-teal-600">{vatScore.toFixed(1)}</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Based on initial SUD: {initialSUD}, length ratio: {(lengthRatio * 100).toFixed(0)}%, 
+                    awareness ratio: {(awarenessRatio * 100).toFixed(0)}%
+                  </p>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-red-600">Unable to calculate VAT score</p>
+                  <ul className="text-xs text-red-500 list-disc list-inside">
+                    {!initialSUD && <li>Initial SUD level missing</li>}
+                    {!lengthRatio && <li>Length ratio not recorded</li>}
+                    {!awarenessRatio && <li>Awareness ratio not available</li>}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
         </div>
