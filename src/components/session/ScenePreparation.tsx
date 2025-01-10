@@ -13,6 +13,7 @@ const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) =
   const [countdown, setCountdown] = useState(5);
   const [showStartButton, setShowStartButton] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoComplete, setIsVideoComplete] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
