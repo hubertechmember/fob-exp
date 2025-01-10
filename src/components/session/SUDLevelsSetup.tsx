@@ -21,7 +21,7 @@ const getAnxietyDescription = (level: number): string => {
   return "Extreme anxiety, maximum distress";
 };
 
-const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ onComplete, mode = 'initial' }) => {
+export default function SUDLevelsSetup({ onComplete, mode = 'initial' }: SUDLevelsSetupProps) {
   const [sudLevel, setSudLevel] = useState<number>(50);
 
   return (
