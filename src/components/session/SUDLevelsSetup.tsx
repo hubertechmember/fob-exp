@@ -35,7 +35,7 @@ const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ mode, onComplete }) => 
         <p className="text-gray-600">
           {mode === 'initial' && 'Please indicate your current anxiety level on a scale from 0 to 100:'}
           {mode === 'during' && 'While the scene is paused, please rate your current anxiety level:'}
-          {mode === 'final' && 'Now that you've ended the session, please rate your final anxiety level:'}
+          {mode === 'final' && "Now that you've ended the session, please rate your final anxiety level:"}
         </p>
         {mode === 'final' && (
           <div className="bg-blue-50 p-4 rounded-lg">
