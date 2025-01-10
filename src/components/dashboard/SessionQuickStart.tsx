@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Play, Calendar, Clock, AlertCircle, CheckCircle, Info, Star } from 'lucide-react';
+import { Play, Clock, AlertCircle, CheckCircle, Info, Star } from 'lucide-react';
 
 const SessionQuickStart = () => {
   const [isReadinessChecked, setIsReadinessChecked] = useState(false);
@@ -14,23 +14,22 @@ const SessionQuickStart = () => {
     benefits: string[];
   }>(null);
   
-  // Scenarios tailored to anxiety level
   const recommendedScenarios = [
     {
       id: 1,
-      title: "Kawiarnia - Obserwacja",
+      title: "Cafe Observation Exercise",
       duration: "15 min",
-      difficulty: "Niska",
-      description: "Spokojna obserwacja kawiarni w godzinach przedpołudniowych. Bez interakcji, skupienie na oswajaniu się z przestrzenią.",
-      benefits: ["Bezpieczne środowisko", "Kontrolowane warunki", "Krótki czas ekspozycji"]
+      difficulty: "Low",
+      description: "A gentle morning cafe observation exercise. Focus on being present in the space without any pressure to interact - your therapist will guide you through mindful observation.",
+      benefits: ["Therapist-guided session", "Safe environment", "Controlled conditions"]
     },
     {
       id: 2,
-      title: "Mała Grupa - Słuchacz",
+      title: "Small Group Listening Practice",
       duration: "20 min",
-      difficulty: "Niska-Średnia",
-      description: "Dołączenie do małej grupy 3-4 osób jako słuchacz. Bez presji aktywnego udziału.",
-      benefits: ["Stopniowa socjalizacja", "Możliwość wycofania się", "Naturalne środowisko"]
+      difficulty: "Low-Medium",
+      description: "Join a small group of 3-4 people as a listener. Your therapist will help you process the experience and manage any anxiety that arises.",
+      benefits: ["Professional support", "Gradual exposure", "No pressure to speak"]
     }
   ];
 
