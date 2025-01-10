@@ -27,52 +27,60 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
       </div>
       
       <div className="space-y-6">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
-            <div className="flex items-center gap-3">
-              <Video className="text-gray-600" />
-              <div>
-                <span className="font-medium">VR Display Test</span>
-                <p className="text-sm text-gray-500 mt-1">
-                  Play the test video and confirm you can see it clearly in VR
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setChecks(prev => ({ ...prev, video: !prev.video }))}
-              className="text-teal-600"
-            >
-              {checks.video ? <CheckCircle /> : <XCircle />}
-            </button>
-          </div>
-          <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
-            <HelpCircle size={14} />
-            Can't see the test video?
-          </button>
+        {/* Test video player placeholder */}
+        <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+          <Play className="text-gray-400" size={48} />
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
-            <div className="flex items-center gap-3">
-              <Volume2 className="text-gray-600" />
-              <div>
-                <span className="font-medium">Sound Test</span>
-                <p className="text-sm text-gray-500 mt-1">
-                  Play the test sound and confirm you can hear it clearly
-                </p>
+        {/* Checks */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
+              <div className="flex items-center gap-3">
+                <Video className="text-gray-600" />
+                <div>
+                  <span className="font-medium">VR Display Check</span>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Confirm you can see the test video clearly in VR
+                  </p>
+                </div>
               </div>
+              <button
+                onClick={() => setChecks(prev => ({ ...prev, video: !prev.video }))}
+                className="text-teal-600"
+              >
+                {checks.video ? <CheckCircle /> : <XCircle />}
+              </button>
             </div>
-            <button
-              onClick={() => setChecks(prev => ({ ...prev, sound: !prev.sound }))}
-              className="text-teal-600"
-            >
-              {checks.sound ? <CheckCircle /> : <XCircle />}
+            <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
+              <HelpCircle size={14} />
+              Video display issues?
             </button>
           </div>
-          <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
-            <HelpCircle size={14} />
-            Sound not working?
-          </button>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
+              <div className="flex items-center gap-3">
+                <Volume2 className="text-gray-600" />
+                <div>
+                  <span className="font-medium">Sound Check</span>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Confirm you can hear the test video audio clearly
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setChecks(prev => ({ ...prev, sound: !prev.sound }))}
+                className="text-teal-600"
+              >
+                {checks.sound ? <CheckCircle /> : <XCircle />}
+              </button>
+            </div>
+            <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
+              <HelpCircle size={14} />
+              Audio not working?
+            </button>
+          </div>
         </div>
       </div>
 
