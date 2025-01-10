@@ -14,6 +14,7 @@ export interface SceneSession {
   sceneId: string;
   startTime: Date;
   endTime?: Date;
+  lengthRatio?: number;
   vatMetrics?: VATMetrics;
   vatResult?: VATResult;
 }

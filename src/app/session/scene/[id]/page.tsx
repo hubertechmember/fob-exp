@@ -16,6 +16,7 @@ export default function ScenePage() {
   const [session, setSession] = useState<SceneSession>({
     sceneId: params.id as string,
     startTime: new Date(),
+    lengthRatio: 0
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
@@ -70,6 +71,12 @@ export default function ScenePage() {
 
   const handleStop = () => {
     setIsPlaying(false);
+    const videoLength = 300; // 5 minutes in seconds
+    const lengthRatio = Math.min(elapsedTime / videoLength, 1);
+    setSession(prev => ({
+      ...prev,
+      lengthRatio: lengthRatio
+    }));
     setShowSUDPrompt(true);
   };
 
@@ -81,7 +88,7 @@ export default function ScenePage() {
     const metrics: VATMetrics = {
       sudPre: initialSUD,
       sudPost,
-      lengthRatio: Math.min(actualDuration / totalDuration, 1),
+      lengthRatio: session.lengthRatio || Math.min(actualDuration / totalDuration, 1),
       awarenessRatio: 1 // This would come from actual awareness checks
     };
 
