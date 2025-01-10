@@ -77,7 +77,9 @@ const LSASResults = () => {
   }, []);
 
   const result = getResultVariant(score);
-  const colorVariants = {
+  type ColorVariant = 'green' | 'yellow' | 'orange' | 'red';
+  
+  const colorVariants: Record<ColorVariant, string> = {
     green: 'bg-green-50 border-green-200 text-green-800',
     yellow: 'bg-amber-50 border-amber-200 text-amber-800',
     orange: 'bg-orange-50 border-orange-200 text-orange-800',
