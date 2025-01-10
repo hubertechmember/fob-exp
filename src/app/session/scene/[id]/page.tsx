@@ -108,18 +108,12 @@ export default function ScenePage() {
       };
 
       // In real app, save session data to backend
-      console.log('Session completed:', updatedSession);
-      console.log('VAT Score Components:', {
-        sudPre: metrics.sudPre,
-        sudPost: metrics.sudPost,
-        lengthRatio: metrics.lengthRatio,
-        awarenessRatio: metrics.awarenessRatio,
-        formula: '(2 * (SUD_post - SUD_pre) / (Length_ratio + Awareness_ratio) + SUD_post) / 2',
-        score: result.score,
-        recommendation: result.recommendation
-      });
+      setSession(updatedSession);
       
-      router.push('/dashboard');
+      // Don't redirect immediately to show the final metrics
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 10000); // Give user 10 seconds to review the metrics before redirect
     }
   };
 
