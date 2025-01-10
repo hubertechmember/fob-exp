@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Save, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, Save, HelpCircle, Keyboard } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { lsasQuestions } from '@/data/lsasQuestions';
 import LSASFinalStep from './LSASFinalStep';
@@ -34,6 +34,36 @@ const LSASAssessment = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+  const [showAdminCheat, setShowAdminCheat] = useState(false);
+  
+  // Admin cheat key sequence detection
+  useEffect(() => {
+    const keys: string[] = [];
+    const konami = 'admin';
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      keys.push(e.key.toLowerCase());
+      if (keys.length > konami.length) {
+        keys.shift();
+      }
+      if (keys.join('') === konami) {
+        setShowAdminCheat(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleAdminSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const score = parseInt(formData.get('score') as string);
+    if (score >= 0 && score <= 144) {
+      localStorage.setItem('lsas_score', score.toString());
+      router.push('/assessment/results');
+    }
+  };
 
   const handleAnswer = (type: 'fear' | 'avoidance', value: number) => {
     setAnswers(prev => ({
@@ -158,6 +188,32 @@ const LSASAssessment = () => {
           </div>
         ))}
       </div>
+
+      {/* Admin Cheat Panel */}
+      {showAdminCheat && (
+        <div className="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-lg border border-gray-200 z-50">
+          <div className="flex items-center gap-2 mb-3 text-gray-700">
+            <Keyboard size={20} />
+            <span className="font-medium">Admin Quick Score</span>
+          </div>
+          <form onSubmit={handleAdminSubmit} className="space-y-3">
+            <input
+              type="number"
+              name="score"
+              min="0"
+              max="144"
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter LSAS score (0-144)"
+            />
+            <button
+              type="submit"
+              className="w-full bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
+            >
+              Skip to Results
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="flex justify-between">
