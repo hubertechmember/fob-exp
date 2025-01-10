@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 
 interface SUDLevelsSetupProps {
-  mode: 'initial' | 'during' | 'final';
+  mode: 'initial' | 'during' | 'final' | 'paused' | 'stopped';
   onComplete: (level: number) => void;
 }
 
@@ -87,4 +87,3 @@ export default function SUDLevelsSetup({ mode, onComplete }: SUDLevelsSetupProps
   );
 };
 
-export default SUDLevelsSetup;
