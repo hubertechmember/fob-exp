@@ -203,20 +203,48 @@ export default function ScenePage() {
                 Initial anxiety level: {initialSUD}
               </p>
               {vatMetrics && vatResult && (
-                <div className="space-y-2 mt-4 text-left max-w-md mx-auto">
-                  <h3 className="font-medium text-gray-800">VAT Score Components:</h3>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li>Pre-exposure SUD: {vatMetrics.sudPre}</li>
-                    <li>Post-exposure SUD: {vatMetrics.sudPost}</li>
-                    <li>Length Ratio: {(vatMetrics.lengthRatio * 100).toFixed(1)}%</li>
-                    <li>Awareness Ratio: {(vatMetrics.awarenessRatio * 100).toFixed(1)}%</li>
-                    <li className="font-medium text-teal-600 mt-2">
-                      VAT Score: {vatResult.score.toFixed(1)}
-                    </li>
-                    <li className="text-blue-600">
-                      Recommendation: {vatResult.recommendation}
-                    </li>
-                  </ul>
+                <div className="space-y-4 mt-4 text-left max-w-md mx-auto">
+                  <h3 className="font-medium text-gray-800">Session Metrics:</h3>
+                  <div className="space-y-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">SUD Levels</h4>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li>Pre-exposure: {vatMetrics.sudPre}</li>
+                        <li>Post-exposure: {vatMetrics.sudPost}</li>
+                        <li className="text-xs text-gray-500 mt-1">
+                          Change: {vatMetrics.sudPost - vatMetrics.sudPre} points
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">Exposure Quality</h4>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li>Length Ratio: {(vatMetrics.lengthRatio * 100).toFixed(1)}%</li>
+                        <li>Awareness Ratio: {(vatMetrics.awarenessRatio * 100).toFixed(1)}%</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">VAT Calculation</h4>
+                      <div className="text-xs text-gray-500 space-y-1">
+                        <p>Formula: (2 × (SUD_post - SUD_pre) / (Length_ratio + Awareness_ratio) + SUD_post) / 2</p>
+                        <p>= (2 × ({vatMetrics.sudPost} - {vatMetrics.sudPre}) / ({vatMetrics.lengthRatio.toFixed(2)} + {vatMetrics.awarenessRatio.toFixed(2)}) + {vatMetrics.sudPost}) / 2</p>
+                        <p className="text-sm font-medium text-teal-600 mt-2">
+                          Final VAT Score: {vatResult.score.toFixed(1)}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className={`p-3 rounded-lg ${
+                      vatResult.recommendation === 'proceed' ? 'bg-green-50 text-green-700' :
+                      vatResult.recommendation === 'repeat' ? 'bg-yellow-50 text-yellow-700' :
+                      'bg-red-50 text-red-700'
+                    }`}>
+                      <h4 className="text-sm font-medium mb-1">Recommendation</h4>
+                      <p className="text-sm capitalize">{vatResult.recommendation} with therapy plan</p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
