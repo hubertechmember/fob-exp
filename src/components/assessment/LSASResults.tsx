@@ -84,7 +84,7 @@ const LSASResults = () => {
     yellow: 'bg-amber-50 border-amber-200 text-amber-800',
     orange: 'bg-orange-50 border-orange-200 text-orange-800',
     red: 'bg-red-50 border-red-200 text-red-800'
-  };
+  } as const;
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-8">
@@ -99,7 +99,7 @@ const LSASResults = () => {
       </div>
 
       {/* Score Display */}
-      <div className={`p-6 rounded-lg border ${colorVariants[result.color]} space-y-4`}>
+      <div className={`p-6 rounded-lg border ${colorVariants[result.color as ColorVariant]} space-y-4`}>
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-xl font-semibold">{result.level}</h2>
