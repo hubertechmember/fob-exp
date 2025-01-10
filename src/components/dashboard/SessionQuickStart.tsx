@@ -291,6 +291,7 @@ const SessionQuickStart = () => {
               </div>
               
               <button
+                onClick={() => router.push(`/session/setup?sceneId=${selectedScenario?.id}`)}
                 disabled={!canStartSession}
                 className="w-full bg-teal-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-teal-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
