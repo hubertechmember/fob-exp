@@ -12,6 +12,9 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
     video: false,
     sound: false
   });
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [videoError, setVideoError] = useState<string | null>(null);
+  const [audioError, setAudioError] = useState<string | null>(null);
 
   const allChecksComplete = Object.values(checks).every(check => check);
 
@@ -27,16 +30,32 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
       </div>
       
       <div className="space-y-6">
-        {/* Test video player placeholder */}
-        <button 
-          onClick={() => {
-            // Here you would toggle video play/pause
-            console.log('Toggle video playback');
-          }}
-          className="w-full aspect-video bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer"
-        >
-          <Play className="text-gray-400" size={48} />
-        </button>
+        {/* Test video player */}
+        <div className="relative">
+          <div className={`w-full aspect-video bg-gray-900 rounded-lg flex items-center justify-center ${isPlaying ? 'animate-pulse' : ''}`}>
+            {isPlaying ? (
+              <div className="text-white text-center space-y-2">
+                <div className="text-lg font-medium">Test Video Playing</div>
+                <div className="text-sm opacity-75">Look around in VR to verify display</div>
+              </div>
+            ) : (
+              <div className="text-gray-400 text-center space-y-2">
+                <Play size={48} />
+                <div className="text-sm">Click to play test video</div>
+              </div>
+            )}
+          </div>
+          <button 
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="absolute inset-0 w-full h-full cursor-pointer"
+            aria-label={isPlaying ? "Pause test video" : "Play test video"}
+          />
+          {isPlaying && (
+            <div className="absolute bottom-4 left-4 right-4 bg-black bg-opacity-50 text-white px-4 py-2 rounded-lg text-sm">
+              Playing test content - Please check both video and audio
+            </div>
+          )}
+        </div>
 
         {/* Checks */}
         <div className="space-y-4">
@@ -58,10 +77,20 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
                 {checks.video ? <CheckCircle /> : <XCircle />}
               </div>
             </button>
-            <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
-              <HelpCircle size={14} />
-              Video display issues?
-            </button>
+            <div className="space-y-2">
+              <button 
+                onClick={() => setVideoError(videoError ? null : "Try adjusting your VR headset position and ensure it's properly connected.")}
+                className="text-sm text-teal-600 hover:underline flex items-center gap-1"
+              >
+                <HelpCircle size={14} />
+                Video display issues?
+              </button>
+              {videoError && (
+                <div className="text-sm text-red-600 bg-red-50 p-3 rounded-lg">
+                  {videoError}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -82,10 +111,20 @@ const AudioVideoCheck: React.FC<AudioVideoCheckProps> = ({ onComplete }) => {
                 {checks.sound ? <CheckCircle /> : <XCircle />}
               </div>
             </button>
-            <button className="text-sm text-teal-600 hover:underline flex items-center gap-1">
-              <HelpCircle size={14} />
-              Audio not working?
-            </button>
+            <div className="space-y-2">
+              <button 
+                onClick={() => setAudioError(audioError ? null : "Check your headset's audio settings and volume level.")}
+                className="text-sm text-teal-600 hover:underline flex items-center gap-1"
+              >
+                <HelpCircle size={14} />
+                Audio not working?
+              </button>
+              {audioError && (
+                <div className="text-sm text-red-600 bg-red-50 p-3 rounded-lg">
+                  {audioError}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
