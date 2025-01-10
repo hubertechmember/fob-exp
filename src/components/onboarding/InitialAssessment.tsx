@@ -17,7 +17,7 @@ const InitialAssessment = () => {
               Initial Assessment (LSAS)
             </h2>
             <p className="text-gray-600">
-              Zanim zaczniemy, chcielibyśmy lepiej zrozumieć Twoje doświadczenia z lękiem społecznym.
+              Before we begin, we would like to better understand your experiences with social anxiety.
             </p>
           </div>
           <div className="w-32">

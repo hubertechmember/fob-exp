@@ -3,9 +3,6 @@ import React from 'react';
 const InitialAssessmentSVG = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" className="w-full max-w-4xl mx-auto">
-      {/* Background */}
-      <rect width="800" height="600" fill="#f8fafc"/>
-      
       {/* Navigation Bar */}
       <rect width="800" height="60" fill="#ffffff" stroke="#e2e8f0"/>
       <circle cx="40" cy="30" r="20" fill="#0d9488"/>
