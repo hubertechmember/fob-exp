@@ -76,37 +76,35 @@ const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) =
             <span className="text-2xl font-bold">{countdown}</span>
           </div>
         </div>
+      ) : !isVideoPlaying ? (
+        <button
+          onClick={() => setIsVideoPlaying(true)}
+          className="w-full bg-teal-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-teal-700 transition-colors"
+        >
+          Start Scene
+        </button>
       ) : (
-        {!isVideoPlaying ? (
-          <button
-            onClick={() => setIsVideoPlaying(true)}
-            className="w-full bg-teal-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-teal-700 transition-colors"
-          >
-            Start Scene
-          </button>
-        ) : (
-          <div className="space-y-4">
-            <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
-              <video
-                autoPlay
-                className="w-full h-full object-cover"
-                onEnded={() => {
-                  setIsVideoComplete(true);
-                  onStart();
-                }}
-              >
-                <source src="/scene-intro.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <button
-                onClick={onStart}
-                className="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-gray-800 px-4 py-2 rounded-lg text-sm transition-colors"
-              >
-                Skip Introduction
-              </button>
-            </div>
+        <div className="space-y-4">
+          <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+            <video
+              autoPlay
+              className="w-full h-full object-cover"
+              onEnded={() => {
+                setIsVideoComplete(true);
+                onStart();
+              }}
+            >
+              <source src="/scene-intro.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <button
+              onClick={onStart}
+              className="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-gray-800 px-4 py-2 rounded-lg text-sm transition-colors"
+            >
+              Skip Introduction
+            </button>
           </div>
-        )}
+        </div>
       )}
     </div>
   );
