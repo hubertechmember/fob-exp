@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Video, Volume2, CheckCircle, XCircle, HelpCircle } from 'lucide-react';
+import { Video, Volume2, CheckCircle, XCircle, HelpCircle, Play } from 'lucide-react';
 
 interface AudioVideoCheckProps {
   onComplete: () => void;
