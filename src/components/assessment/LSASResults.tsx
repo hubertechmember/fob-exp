@@ -42,9 +42,9 @@ const LSASResults = () => {
       color: 'orange',
       description: 'Your level of social anxiety is moderate. Exposure therapy can significantly improve your quality of life.',
       nextSteps: [
-        'Regular exposure therapy',
+        'Regular exposure sessions',
         'Working with automatic thoughts',
-        'Gradual increase in exposure difficulty'
+        'Progress from Gentle to Moderate scenes'
       ]
     };
     if (score <= 95) return {
@@ -52,9 +52,9 @@ const LSASResults = () => {
       color: 'red',
       description: 'You are experiencing significant social anxiety. We recommend systematic therapeutic work in a safe environment.',
       nextSteps: [
-        'Intensive exposure therapy',
-        'Regular therapist support',
-        'Working on basic situations'
+        'Structured exposure sessions',
+        'Consistent therapist support',
+        'Focus on Gentle difficulty scenes'
       ]
     };
     return {
@@ -62,9 +62,9 @@ const LSASResults = () => {
       color: 'red',
       description: 'Your level of social anxiety is very high. We will start with small, safe steps in a controlled environment.',
       nextSteps: [
-        'Therapy at the most comfortable pace',
-        'Frequent support sessions',
-        'Starting with the simplest exposures'
+        'Sessions at your own pace',
+        'Regular therapist support',
+        'Starting with Gentle scenes only'
       ]
     };
   };

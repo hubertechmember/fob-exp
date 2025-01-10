@@ -60,7 +60,7 @@ const SessionQuickStart = () => {
           description: "A calm, quiet atmosphere with minimal distractions. Perfect for your first exposure to presentation situations.",
           minLSASScore: 0,
           maxLSASScore: 54,
-          benefits: ["Calm environment", "Minimal distractions", "Therapist-guided"],
+          benefits: ["Calm environment", "Minimal distractions", "Therapist supported"],
           locked: false
         },
         {
@@ -72,7 +72,7 @@ const SessionQuickStart = () => {
           description: "Practice being in a quiet waiting room with minimal phone interactions.",
           minLSASScore: 0,
           maxLSASScore: 54,
-          benefits: ["Quiet environment", "Comfortable position", "Low pressure"],
+          benefits: ["Quiet environment", "Comfortable position", "Therapist supported"],
           locked: false
         }
       ];
@@ -87,7 +87,7 @@ const SessionQuickStart = () => {
           description: "Experience a more active environment with some audience expectations.",
           minLSASScore: 55,
           maxLSASScore: 80,
-          benefits: ["Realistic setting", "Moderate challenge", "Guided exposure"],
+          benefits: ["Realistic setting", "Moderate challenge", "Therapist supported"],
           locked: false
         },
         {
@@ -99,7 +99,7 @@ const SessionQuickStart = () => {
           description: "Handle phone interactions with some attention from others.",
           minLSASScore: 55,
           maxLSASScore: 80,
-          benefits: ["Natural setting", "Moderate attention", "Controlled exposure"],
+          benefits: ["Natural setting", "Moderate attention", "Therapist supported"],
           locked: false
         }
       ];
@@ -114,7 +114,7 @@ const SessionQuickStart = () => {
           description: "Navigate a more dynamic environment with various distractions.",
           minLSASScore: 81,
           maxLSASScore: 144,
-          benefits: ["Complex environment", "Multiple distractions", "Professional support"],
+          benefits: ["Complex environment", "Multiple distractions", "Therapist supported"],
           locked: true
         },
         {
@@ -126,7 +126,7 @@ const SessionQuickStart = () => {
           description: "Manage multiple phone interactions and increased attention.",
           minLSASScore: 81,
           maxLSASScore: 144,
-          benefits: ["High engagement", "Multiple interactions", "Intensive support"],
+          benefits: ["High engagement", "Multiple interactions", "Therapist supported"],
           locked: true
         }
       ];
@@ -200,8 +200,26 @@ const SessionQuickStart = () => {
                       {scenario.duration}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Star size={16} />
-                      {scenario.difficulty}
+                      <Star 
+                        size={16} 
+                        className={
+                          scenario.difficulty === "Gentle" ? "text-green-500" :
+                          scenario.difficulty === "Moderate" ? "text-orange-500" :
+                          "text-red-500"
+                        }
+                        fill={
+                          scenario.difficulty === "Gentle" ? "#22c55e" :
+                          scenario.difficulty === "Moderate" ? "#f97316" :
+                          "#ef4444"
+                        }
+                      />
+                      <span className={
+                        scenario.difficulty === "Gentle" ? "text-green-700" :
+                        scenario.difficulty === "Moderate" ? "text-orange-700" :
+                        "text-red-700"
+                      }>
+                        {scenario.difficulty}
+                      </span>
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">{scenario.description}</p>
