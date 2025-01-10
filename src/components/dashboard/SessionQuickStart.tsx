@@ -1,37 +1,139 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Play, Clock, AlertCircle, CheckCircle, Info, Star } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, Clock, AlertCircle, CheckCircle, Info, Star, Lock, Unlock } from 'lucide-react';
+import type { SceneConfig } from '@/types/scenes';
 
 const SessionQuickStart = () => {
   const [isReadinessChecked, setIsReadinessChecked] = useState(false);
-  const [selectedScenario, setSelectedScenario] = useState<null | {
-    id: number;
-    title: string;
-    duration: string;
-    difficulty: string;
-    description: string;
-    benefits: string[];
-  }>(null);
+  const [selectedScenario, setSelectedScenario] = useState<SceneConfig | null>(null);
+  const [lsasScore, setLsasScore] = useState<number>(0);
+  const [showAdminUnlock, setShowAdminUnlock] = useState(false);
+  const [unlockCode, setUnlockCode] = useState('');
   
-  const recommendedScenarios = [
-    {
-      id: 1,
-      title: "Cafe Observation Exercise",
-      duration: "15 min",
-      difficulty: "Low",
-      description: "A gentle morning cafe observation exercise. Focus on being present in the space without any pressure to interact - your therapist will guide you through mindful observation.",
-      benefits: ["Therapist-guided session", "Safe environment", "Controlled conditions"]
-    },
-    {
-      id: 2,
-      title: "Small Group Listening Practice",
-      duration: "20 min",
-      difficulty: "Low-Medium",
-      description: "Join a small group of 3-4 people as a listener. Your therapist will help you process the experience and manage any anxiety that arises.",
-      benefits: ["Professional support", "Gradual exposure", "No pressure to speak"]
+  useEffect(() => {
+    const savedScore = localStorage.getItem('lsas_score');
+    if (savedScore) {
+      setLsasScore(parseInt(savedScore));
     }
-  ];
+  }, []);
+
+  // Admin unlock key sequence detection
+  useEffect(() => {
+    const keys: string[] = [];
+    const konami = 'admin';
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      keys.push(e.key.toLowerCase());
+      if (keys.length > konami.length) {
+        keys.shift();
+      }
+      if (keys.join('') === konami) {
+        setShowAdminUnlock(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleUnlock = (sceneId: string) => {
+    if (unlockCode === 'unlock') {
+      const updatedScenarios = recommendedScenarios.map(scenario => 
+        scenario.id === sceneId ? { ...scenario, locked: false } : scenario
+      );
+      // In real implementation, you'd want to persist this state
+      setUnlockCode('');
+      setShowAdminUnlock(false);
+    }
+  };
+
+  const getRecommendedScenarios = (score: number): SceneConfig[] => {
+    if (score <= 54) {
+      return [
+        {
+          id: "123405",
+          title: "Pre-presentation Waiting (Gentle)",
+          duration: "5 min",
+          difficulty: "Gentle",
+          category: "Conference",
+          description: "A calm, quiet atmosphere with minimal distractions. Perfect for your first exposure to presentation situations.",
+          minLSASScore: 0,
+          maxLSASScore: 54,
+          benefits: ["Calm environment", "Minimal distractions", "Therapist-guided"],
+          locked: false
+        },
+        {
+          id: "130448",
+          title: "Corner Observer (Gentle)",
+          duration: "5 min",
+          difficulty: "Gentle",
+          category: "WaitingRoom",
+          description: "Practice being in a quiet waiting room with minimal phone interactions.",
+          minLSASScore: 0,
+          maxLSASScore: 54,
+          benefits: ["Quiet environment", "Comfortable position", "Low pressure"],
+          locked: false
+        }
+      ];
+    } else if (score <= 80) {
+      return [
+        {
+          id: "124222",
+          title: "Pre-presentation Waiting (Moderate)",
+          duration: "5 min",
+          difficulty: "Moderate",
+          category: "Conference",
+          description: "Experience a more active environment with some audience expectations.",
+          minLSASScore: 55,
+          maxLSASScore: 80,
+          benefits: ["Realistic setting", "Moderate challenge", "Guided exposure"],
+          locked: false
+        },
+        {
+          id: "131256",
+          title: "Corner Observer (Moderate)",
+          duration: "5 min",
+          difficulty: "Moderate",
+          category: "WaitingRoom",
+          description: "Handle phone interactions with some attention from others.",
+          minLSASScore: 55,
+          maxLSASScore: 80,
+          benefits: ["Natural setting", "Moderate attention", "Controlled exposure"],
+          locked: false
+        }
+      ];
+    } else {
+      return [
+        {
+          id: "125915",
+          title: "Pre-presentation Waiting (Challenging)",
+          duration: "5 min",
+          difficulty: "Challenging",
+          category: "Conference",
+          description: "Navigate a more dynamic environment with various distractions.",
+          minLSASScore: 81,
+          maxLSASScore: 144,
+          benefits: ["Complex environment", "Multiple distractions", "Professional support"],
+          locked: true
+        },
+        {
+          id: "132613",
+          title: "Corner Observer (Challenging)",
+          duration: "5 min",
+          difficulty: "Challenging",
+          category: "WaitingRoom",
+          description: "Manage multiple phone interactions and increased attention.",
+          minLSASScore: 81,
+          maxLSASScore: 144,
+          benefits: ["High engagement", "Multiple interactions", "Intensive support"],
+          locked: true
+        }
+      ];
+    }
+  };
+
+  const recommendedScenarios = getRecommendedScenarios(lsasScore);
 
   // Lista kontrolna gotowości
   const readinessChecklist = [
