@@ -110,10 +110,8 @@ export default function ScenePage() {
       // In real app, save session data to backend
       setSession(updatedSession);
       
-      // Don't redirect immediately to show the final metrics
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 10000); // Give user 10 seconds to review the metrics before redirect
+      // Let user analyze the VAT score and metrics
+      // They can use browser back button or dashboard link when ready
     }
   };
 
