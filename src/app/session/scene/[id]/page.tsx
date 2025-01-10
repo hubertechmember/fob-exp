@@ -18,6 +18,8 @@ export default function ScenePage() {
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
+  const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
+  const [vatResult, setVatResult] = useState<VATResult | null>(null);
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
 
   useEffect(() => {
@@ -36,6 +38,9 @@ export default function ScenePage() {
   }, [params.id]);
 
   const handlePlayPause = () => {
+    if (isPlaying) {
+      setShowSUDPrompt(true);
+    }
     setIsPlaying(!isPlaying);
   };
 
@@ -49,21 +54,42 @@ export default function ScenePage() {
     const totalDuration = 300; // 5 minutes in seconds
     const actualDuration = (endTime.getTime() - session.startTime.getTime()) / 1000;
     
-    const updatedSession: SceneSession = {
-      ...session,
-      endTime,
-      vatMetrics: {
-        sudPre: initialSUD,
-        sudPost,
-        lengthRatio: Math.min(actualDuration / totalDuration, 1),
-        awarenessRatio: 1, // This would come from actual awareness checks
-      }
+    const metrics: VATMetrics = {
+      sudPre: initialSUD,
+      sudPost,
+      lengthRatio: Math.min(actualDuration / totalDuration, 1),
+      awarenessRatio: 1 // This would come from actual awareness checks
     };
 
-    // In real app, save session data to backend
-    console.log('Session completed:', updatedSession);
+    const result = calculateVATScore(metrics);
     
-    router.push('/dashboard');
+    setVatMetrics(metrics);
+    setVatResult(result);
+    setShowSUDPrompt(false);
+
+    // Only end session if stopped, not paused
+    if (!isPlaying) {
+      const updatedSession: SceneSession = {
+        ...session,
+        endTime,
+        vatMetrics: metrics,
+        vatResult: result
+      };
+
+      // In real app, save session data to backend
+      console.log('Session completed:', updatedSession);
+      console.log('VAT Score Components:', {
+        sudPre: metrics.sudPre,
+        sudPost: metrics.sudPost,
+        lengthRatio: metrics.lengthRatio,
+        awarenessRatio: metrics.awarenessRatio,
+        formula: '(2 * (SUD_post - SUD_pre) / (Length_ratio + Awareness_ratio) + SUD_post) / 2',
+        score: result.score,
+        recommendation: result.recommendation
+      });
+      
+      router.push('/dashboard');
+    }
   };
 
   if (!scene) {
@@ -123,14 +149,33 @@ export default function ScenePage() {
             </div>
           </div>
 
-          {/* Scene placeholder - in MVP we just show duration */}
+          {/* Scene placeholder with VAT metrics */}
           <div className="bg-white p-8 rounded-lg border border-slate-200 text-center">
             <div className="text-4xl font-bold text-gray-800 mb-4">
               {isPlaying ? "Scene in progress..." : "Scene paused"}
             </div>
-            <p className="text-gray-600">
-              Initial anxiety level: {initialSUD}
-            </p>
+            <div className="space-y-2">
+              <p className="text-gray-600">
+                Initial anxiety level: {initialSUD}
+              </p>
+              {vatMetrics && vatResult && (
+                <div className="space-y-2 mt-4 text-left max-w-md mx-auto">
+                  <h3 className="font-medium text-gray-800">VAT Score Components:</h3>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>Pre-exposure SUD: {vatMetrics.sudPre}</li>
+                    <li>Post-exposure SUD: {vatMetrics.sudPost}</li>
+                    <li>Length Ratio: {(vatMetrics.lengthRatio * 100).toFixed(1)}%</li>
+                    <li>Awareness Ratio: {(vatMetrics.awarenessRatio * 100).toFixed(1)}%</li>
+                    <li className="font-medium text-teal-600 mt-2">
+                      VAT Score: {vatResult.score.toFixed(1)}
+                    </li>
+                    <li className="text-blue-600">
+                      Recommendation: {vatResult.recommendation}
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </main>
