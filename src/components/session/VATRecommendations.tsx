@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, ArrowLeft, Play, AlertCircle } from 'lucide-react';
+import { Lock, ArrowLeft, Play, AlertCircle, Unlock } from 'lucide-react';
+import { enableAdminMode, ADMIN_KONAMI } from '@/utils/adminMode';
 import type { SceneConfig } from '@/types/scenes';
 
 interface VATRecommendationsProps {
