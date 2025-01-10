@@ -134,6 +134,9 @@ export default function ScenePage() {
           <SUDLevelsSetup 
             onComplete={handleSUDComplete} 
             mode={isPlaying ? 'paused' : 'stopped'} 
+            initialSUD={initialSUD}
+            lengthRatio={session.lengthRatio || 1}
+            awarenessRatio={1}
           />
         </div>
       </div>

@@ -6,6 +6,9 @@ import { AlertCircle } from 'lucide-react';
 interface SUDLevelsSetupProps {
   mode: 'initial' | 'during' | 'final' | 'paused' | 'stopped';
   onComplete: (level: number) => void;
+  initialSUD?: number;
+  lengthRatio?: number;
+  awarenessRatio?: number;
 }
 
 const getAnxietyDescription = (level: number): string => {
@@ -21,8 +24,22 @@ const getAnxietyDescription = (level: number): string => {
   return "Extreme anxiety, maximum distress";
 };
 
-const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ mode, onComplete }) => {
+const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ 
+  mode, 
+  onComplete, 
+  initialSUD, 
+  lengthRatio = 1, 
+  awarenessRatio = 1 
+}) => {
   const [sudLevel, setSudLevel] = useState<number>(50);
+  const [vatScore, setVatScore] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (mode === 'final' && initialSUD !== undefined) {
+      const score = (2 * (sudLevel - initialSUD) / (lengthRatio + awarenessRatio) + sudLevel) / 2;
+      setVatScore(score);
+    }
+  }, [sudLevel, initialSUD, lengthRatio, awarenessRatio, mode]);
 
   return (
     <div className="space-y-8">
@@ -67,6 +84,16 @@ const SUDLevelsSetup: React.FC<SUDLevelsSetupProps> = ({ mode, onComplete }) => 
         <div className="text-center space-y-2">
           <span className="text-2xl font-bold text-teal-600">{sudLevel}</span>
           <p className="text-sm text-gray-600">{getAnxietyDescription(sudLevel)}</p>
+          {mode === 'final' && vatScore !== null && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm font-medium text-gray-700">Projected VAT Score</p>
+              <p className="text-2xl font-bold text-teal-600">{vatScore.toFixed(1)}</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Based on initial SUD: {initialSUD}, length ratio: {(lengthRatio * 100).toFixed(0)}%, 
+                awareness ratio: {(awarenessRatio * 100).toFixed(0)}%
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="bg-blue-50 p-4 rounded-lg flex gap-3">
