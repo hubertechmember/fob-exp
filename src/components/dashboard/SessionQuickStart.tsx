@@ -263,7 +263,7 @@ const SessionQuickStart = () => {
           ) : (
             <div className="space-y-4">
               <p className="text-sm text-gray-700 mb-3">
-                Potwierdź, że jesteś gotowy/a:
+                Confirm that you are ready:
               </p>
               <div className="space-y-3">
                 {readinessChecklist.map((item) => (
