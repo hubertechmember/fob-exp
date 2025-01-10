@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, ArrowLeft, Play, AlertCircle, Unlock } from 'lucide-react';
 import { enableAdminMode, ADMIN_KONAMI } from '@/utils/adminMode';
