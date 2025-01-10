@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Play, Clock, AlertCircle, CheckCircle, Info, Star } from 'lucide-react';
+import { Play, Calendar, Clock, AlertCircle, CheckCircle, Info, Star } from 'lucide-react';
 
 const SessionQuickStart = () => {
   const [isReadinessChecked, setIsReadinessChecked] = useState(false);
