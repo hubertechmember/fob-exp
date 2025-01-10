@@ -5,7 +5,8 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { AlertCircle, Pause, Play, StopCircle } from 'lucide-react';
 import SUDLevelsSetup from '@/components/session/SUDLevelsSetup';
 import type { SceneConfig } from '@/types/scenes';
-import type { SceneSession } from '@/types/vat';
+import type { SceneSession, VATMetrics, VATResult } from '@/types/vat';
+import { calculateVATScore } from '@/utils/vatCalculator';
 
 export default function ScenePage() {
   const params = useParams();
@@ -100,7 +101,10 @@ export default function ScenePage() {
     return (
       <div className="min-h-screen bg-slate-50 p-8">
         <div className="max-w-2xl mx-auto">
-          <SUDLevelsSetup onComplete={handleSUDComplete} />
+          <SUDLevelsSetup 
+            onComplete={handleSUDComplete} 
+            mode={isPlaying ? 'paused' : 'stopped'} 
+          />
         </div>
       </div>
     );
