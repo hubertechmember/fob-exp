@@ -244,6 +244,18 @@ export default function ScenePage() {
               )}
             </div>
           </div>
+
+          {/* Proceed button when VAT score is available */}
+          {vatResult && (
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={() => router.push(`/session/recommendations?vatScore=${vatResult.score}&recommendation=${vatResult.recommendation}`)}
+                className="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors flex items-center gap-2"
+              >
+                Proceed to Recommendations
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </div>
