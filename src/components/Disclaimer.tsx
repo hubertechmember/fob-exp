@@ -6,9 +6,8 @@ const Disclaimer = () => {
       <div className="flex">
         <div className="ml-3">
           <p className="text-sm text-yellow-700">
-            <strong>Ważne:</strong> Ten produkt jest przeznaczony do użytku pod nadzorem wykwalifikowanego terapeuty. 
-            Samodzielne korzystanie z aplikacji odbywa się na własną odpowiedzialność i może nie przynieść 
-            oczekiwanych rezultatów terapeutycznych.
+            <strong>Important:</strong> This product is intended for use under the supervision of a qualified therapist. 
+            Using the application independently is at your own risk and may not achieve the expected therapeutic results.
           </p>
         </div>
       </div>
