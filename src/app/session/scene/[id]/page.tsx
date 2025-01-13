@@ -7,6 +7,7 @@ import SUDLevelsSetup from '@/components/session/SUDLevelsSetup';
 import type { SceneConfig } from '@/types/scenes';
 import type { SceneSession, VATMetrics, VATResult } from '@/types/vat';
 import { calculateVATScore } from '@/utils/vatCalculator';
+import { scenarios } from '@/data/scenarios';
 
 export default function ScenePage() {
   const params = useParams();
@@ -29,8 +30,6 @@ export default function ScenePage() {
   const [elapsedTime, setElapsedTime] = useState(0);
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
   const categoryId = parseInt(searchParams.get('category') || '1');
-  
-  import { scenarios } from '@/data/scenarios';
 
   const getScenarioDetails = (categoryId: number) => {
     const category = scenarios[categoryId as keyof typeof scenarios];
