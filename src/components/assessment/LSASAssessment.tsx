@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight, Save, HelpCircle, Keyboard } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { lsasQuestions } from '@/data/lsasQuestions';
 import LSASFinalStep from './LSASFinalStep';
@@ -133,10 +134,19 @@ const LSASAssessment = () => {
             style={{ width: `${(currentStep / (lsasQuestions.length - 1)) * 100}%` }}
           />
         </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Question card */}
-      <div className="bg-white p-6 rounded-lg shadow-sm space-y-6">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="bg-white p-6 rounded-lg shadow-sm space-y-6"
+        >
         <div className="space-y-2">
           <h2 className="text-xl font-semibold text-gray-800">
             {lsasQuestions[currentStep].situation}
