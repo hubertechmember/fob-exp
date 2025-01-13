@@ -45,46 +45,98 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
   }, []);
 
   React.useEffect(() => {
-    // In real app, fetch from API
-    setScenes([
-      {
-        id: "scene1",
-        title: "Quiet Observation",
-        duration: "5 min",
-        difficulty: "Gentle",
-        category: "Conference",
-        description: "A calm environment for initial exposure",
-        minLSASScore: 0,
-        maxLSASScore: 54,
-        benefits: ["Minimal stress", "Guided experience"],
-        locked: false
-      },
-      {
-        id: "scene2",
-        title: "Active Participation",
-        duration: "10 min",
-        difficulty: "Moderate",
-        category: "Conference",
-        description: "More engaging scenario",
-        minLSASScore: 55,
-        maxLSASScore: 144,
-        benefits: ["Real-life simulation", "Confidence building"],
-        locked: false
-      },
-      {
-        id: "scene3",
-        title: "Advanced Interaction",
-        duration: "15 min",
-        difficulty: "Challenging",
-        category: "Conference",
-        description: "Complex social interactions",
-        minLSASScore: 81,
-        maxLSASScore: 144,
-        benefits: ["Full immersion", "Multiple interactions"],
-        locked: false
+    // Fetch scenes based on category and recommendation
+    const fetchScenes = async () => {
+      try {
+        // In real app, this would be an API call
+        const categoryScenes = {
+          1: [ // Public Speaking
+            {
+              id: "scene1",
+              title: "Pre-Speech Waiting",
+              duration: "5 min",
+              difficulty: "Basic",
+              categoryId: 1,
+              description: "Waiting for your speech to begin",
+              minLSASScore: 0,
+              maxLSASScore: 54,
+              benefits: ["Minimal stress", "Guided experience"],
+              locked: false
+            },
+            {
+              id: "scene2",
+              title: "Audience Expectations",
+              duration: "10 min",
+              difficulty: "Medium",
+              categoryId: 1,
+              description: "Audience expressing expectations",
+              minLSASScore: 55,
+              maxLSASScore: 144,
+              benefits: ["Real-life simulation", "Confidence building"],
+              locked: false
+            },
+            {
+              id: "scene3",
+              title: "Maximum Anxiety Triggers",
+              duration: "15 min",
+              difficulty: "Extreme",
+              categoryId: 1,
+              description: "Maximum pre-speech anxiety triggers",
+              minLSASScore: 81,
+              maxLSASScore: 144,
+              benefits: ["Full immersion", "Multiple interactions"],
+              locked: false
+            }
+          ],
+          2: [ // Public Places
+            {
+              id: "scene4",
+              title: "Corner Observer",
+              duration: "5 min",
+              difficulty: "Basic",
+              categoryId: 2,
+              description: "Minimal reactions in public space",
+              minLSASScore: 0,
+              maxLSASScore: 54,
+              benefits: ["Low intensity", "Observation practice"],
+              locked: false
+            },
+            {
+              id: "scene5",
+              title: "Moderate Attention",
+              duration: "10 min",
+              difficulty: "Medium",
+              categoryId: 2,
+              description: "Moderate attention in public space",
+              minLSASScore: 55,
+              maxLSASScore: 144,
+              benefits: ["Social awareness", "Confidence building"],
+              locked: false
+            },
+            {
+              id: "scene6",
+              title: "Maximum Social Pressure",
+              duration: "15 min",
+              difficulty: "Extreme",
+              categoryId: 2,
+              description: "Maximum social pressure scenario",
+              minLSASScore: 81,
+              maxLSASScore: 144,
+              benefits: ["Full immersion", "Stress management"],
+              locked: false
+            }
+          ]
+          // Add other categories...
+        };
+
+        setScenes(categoryScenes[categoryId] || []);
+      } catch (error) {
+        console.error('Error fetching scenes:', error);
       }
-    ]);
-  }, []);
+    };
+
+    fetchScenes();
+  }, [categoryId]);
 
   // Determine which difficulty levels are available based on VAT score
   const getAvailableLevels = () => {
@@ -147,11 +199,53 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
             </div>
           </div>
 
-          {/* Recommendation header */}
+          {/* VAT Calculation Details */}
+          <div className="bg-white p-6 rounded-lg border border-slate-200">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">VAT Calculation Details</h2>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">VAT Score</h3>
+                  <div className="text-2xl font-bold text-teal-600">
+                    {vatScore.toFixed(1)}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    (Validated Anxiety Treatment Score)
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">Recommendation</h3>
+                  <div className={`text-lg font-medium ${
+                    recommendation === 'proceed' ? 'text-green-600' :
+                    recommendation === 'repeat' ? 'text-yellow-600' :
+                    'text-red-600'
+                  }`}>
+                    {recommendation}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-700 mb-2">Calculation Formula</h3>
+                <div className="text-sm text-gray-600 space-y-2">
+                  <p>VAT = (2 × (SUD_post - SUD_pre) / (Length_ratio + Awareness_ratio) + SUD_post) / 2</p>
+                  <p className="text-xs text-gray-500">
+                    Where:
+                    <br/>- SUD = Subjective Units of Distress
+                    <br/>- Length_ratio = Actual duration / Planned duration
+                    <br/>- Awareness_ratio = Focus level during exposure
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Recommended Scenes */}
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-2xl font-bold text-gray-800">
               Recommended Scenes
-            </h1>
+            </h2>
             <div className="bg-blue-50 p-4 rounded-lg">
               <div className="flex gap-3">
                 <AlertCircle className="text-blue-600 flex-shrink-0" />
