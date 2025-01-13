@@ -15,11 +15,9 @@ const LSASResults = () => {
   const [score, setScore] = useState<number>(0);
   const router = useRouter();
 
-  // Funkcja określająca wariant wyniku
-  const getResultVariant = (score: number) => {
+  const getResultDescription = (score: number) => {
     if (score <= 54) return {
       level: 'No social phobia',
-      color: 'green',
       description: 'Your score indicates no clinical social phobia. We can focus on prevention and further development of social skills.',
       nextSteps: [
         'Optional exposure sessions for development',
@@ -29,7 +27,6 @@ const LSASResults = () => {
     };
     if (score <= 65) return {
       level: 'Mild social phobia',
-      color: 'yellow',
       description: 'You are experiencing mild symptoms of social anxiety. This is a good time to start therapy before symptoms intensify.',
       nextSteps: [
         'Starting with mild exposures',
@@ -39,7 +36,6 @@ const LSASResults = () => {
     };
     if (score <= 80) return {
       level: 'Moderate social phobia',
-      color: 'orange',
       description: 'Your level of social anxiety is moderate. Exposure therapy can significantly improve your quality of life.',
       nextSteps: [
         'Regular exposure sessions',
@@ -49,7 +45,6 @@ const LSASResults = () => {
     };
     if (score <= 95) return {
       level: 'Severe social phobia',
-      color: 'red',
       description: 'You are experiencing significant social anxiety. We recommend systematic therapeutic work in a safe environment.',
       nextSteps: [
         'Structured exposure sessions',
@@ -59,7 +54,6 @@ const LSASResults = () => {
     };
     return {
       level: 'Very severe social phobia',
-      color: 'red',
       description: 'Your level of social anxiety is very high. We will start with small, safe steps in a controlled environment.',
       nextSteps: [
         'Sessions at your own pace',
@@ -76,15 +70,7 @@ const LSASResults = () => {
     }
   }, []);
 
-  const result = getResultVariant(score);
-  type ColorVariant = 'green' | 'yellow' | 'orange' | 'red';
-  
-  const colorVariants: Record<ColorVariant, string> = {
-    green: 'bg-green-50 border-green-200 text-green-800',
-    yellow: 'bg-amber-50 border-amber-200 text-amber-800',
-    orange: 'bg-orange-50 border-orange-200 text-orange-800',
-    red: 'bg-red-50 border-red-200 text-red-800'
-  } as const;
+  const result = getResultDescription(score);
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-8">
@@ -99,17 +85,23 @@ const LSASResults = () => {
       </div>
 
       {/* Score Display */}
-      <div className={`p-6 rounded-lg border ${colorVariants[result.color as ColorVariant]} space-y-4`}>
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-semibold">{result.level}</h2>
-            <p className="mt-1 text-sm opacity-90">Total score: {score}/144 points</p>
-          </div>
-          <div className="h-16 w-16 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
-            <TrendingUp size={24} />
+      <div className="bg-white p-6 rounded-lg shadow-sm space-y-6">
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold text-gray-800">{result.level}</h2>
+          <div className="space-y-3">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>Total score</span>
+              <span>{score}/144 points</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div 
+                className="bg-teal-600 h-3 rounded-full"
+                style={{ width: `${(score/144)*100}%` }}
+              />
+            </div>
           </div>
         </div>
-        <p>{result.description}</p>
+        <p className="text-gray-700">{result.description}</p>
       </div>
 
       {/* Detailed Scores */}
