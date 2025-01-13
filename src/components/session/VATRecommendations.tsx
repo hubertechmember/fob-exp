@@ -113,9 +113,8 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
     // Based on VAT recommendation
     if (recommendation === 'previous') {
-      return completedLevels.length > 0 
-        ? [completedLevels[0]] 
-        : ['Basic'];
+      // Always show at least Basic level
+      return ['Basic'];
     }
     if (recommendation === 'repeat') {
       return completedLevels.length > 1
