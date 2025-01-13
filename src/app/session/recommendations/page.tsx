@@ -8,11 +8,17 @@ function RecommendationsContent() {
   const searchParams = useSearchParams();
   const vatScore = parseFloat(searchParams.get('vatScore') || '0');
   const recommendation = searchParams.get('recommendation') as 'proceed' | 'repeat' | 'previous';
+  const categoryId = parseInt(searchParams.get('category') || '1');
+  const scenarioId = searchParams.get('scenario') || '';
+  const completedLevels = searchParams.get('completedLevels')?.split(',') || [];
 
   return (
     <VATRecommendations 
       vatScore={vatScore}
       recommendation={recommendation}
+      categoryId={categoryId}
+      scenarioId={scenarioId}
+      completedLevels={completedLevels}
     />
   );
 }

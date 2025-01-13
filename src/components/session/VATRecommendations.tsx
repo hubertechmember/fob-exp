@@ -9,6 +9,9 @@ import type { SceneConfig } from '@/types/scenes';
 interface VATRecommendationsProps {
   vatScore: number;
   recommendation: 'proceed' | 'repeat' | 'previous';
+  categoryId: number;
+  scenarioId: string;
+  completedLevels: string[];
 }
 
 const VATRecommendations: React.FC<VATRecommendationsProps> = ({ 
@@ -82,9 +85,30 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
   // Determine which difficulty levels are available based on VAT score
   const getAvailableLevels = () => {
-    if (recommendation === 'previous') return ['Gentle'];
-    if (recommendation === 'repeat') return ['Gentle', 'Moderate'];
-    return ['Gentle', 'Moderate', 'Challenging'];
+    const allLevels = ['Basic', 'Medium', 'Extreme'];
+    
+    // If all levels completed, show all for next scenario
+    if (completedLevels.length === 3) {
+      return allLevels;
+    }
+
+    // Based on VAT recommendation
+    if (recommendation === 'previous') {
+      return completedLevels.length > 0 
+        ? [completedLevels[0]] 
+        : ['Basic'];
+    }
+    if (recommendation === 'repeat') {
+      return completedLevels.length > 1
+        ? completedLevels.slice(0, 2)
+        : ['Basic', 'Medium'];
+    }
+    
+    // For 'proceed', show next level if available
+    const nextLevel = allLevels[completedLevels.length];
+    return nextLevel 
+      ? [...completedLevels, nextLevel]
+      : allLevels;
   };
 
   const availableLevels = getAvailableLevels();
@@ -93,7 +117,7 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
     <div className="min-h-screen bg-slate-50">
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Header with back button */}
+          {/* Header with back button and progress */}
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.push('/dashboard')}
@@ -102,6 +126,22 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
               <ArrowLeft size={20} />
               Back to Dashboard
             </button>
+            
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>Completed Levels:</span>
+              <div className="flex gap-1">
+                {['Basic', 'Medium', 'Extreme'].map(level => (
+                  <div
+                    key={level}
+                    className={`w-4 h-4 rounded-full ${
+                      completedLevels.includes(level)
+                        ? 'bg-teal-600'
+                        : 'bg-gray-200'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Recommendation header */}
@@ -128,8 +168,11 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
           {/* Scene grid */}
           <div className="grid gap-6">
-            {scenes.map((scene) => {
-              const isAvailable = availableLevels.includes(scene.difficulty);
+            {scenes
+              .filter(scene => scene.categoryId === categoryId)
+              .map((scene) => {
+                const isAvailable = availableLevels.includes(scene.difficulty);
+                const isCompleted = completedLevels.includes(scene.difficulty);
               
               return (
                 <div
@@ -175,7 +218,11 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
                     )}
                     {isAvailable || isAdminMode ? (
                       <button
-                        onClick={() => router.push(`/session/setup?sceneId=${scene.id}`)}
+                        onClick={() => router.push(
+                          `/session/setup?sceneId=${scene.id}` +
+                          `&category=${categoryId}` +
+                          `&completedLevels=${completedLevels.join(',')}`
+                        )}
                         className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 flex items-center gap-2"
                       >
                         <Play size={16} />
