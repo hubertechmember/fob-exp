@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { lsasQuestions } from '@/data/lsasQuestions';
 
 interface ReviewStepProps {
   answers: { [key: number]: { fear: number; avoidance: number } };
@@ -11,7 +12,6 @@ interface ReviewStepProps {
 }
 
 const ReviewStep = ({ answers, onModifyAnswer, onSubmit, onBack }: ReviewStepProps) => {
-  import { lsasQuestions } from '@/data/lsasQuestions';
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
