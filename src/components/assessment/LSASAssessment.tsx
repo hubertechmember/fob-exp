@@ -161,8 +161,8 @@ const LSASAssessment = () => {
                   className="absolute right-0 w-64 p-3 mt-2 text-sm bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10"
                   dangerouslySetInnerHTML={{
                     __html: type === 'fear' 
-                      ? "If you're unsure about rating your <b>level of fear</b>, discuss these specific situations with your therapist during this session. They can help you better understand and measure your anxiety patterns."
-                      : "If you're uncertain about your <b>avoidance patterns</b>, your therapist can help analyze how often you avoid situations and provide guidance on managing these behaviors."
+                      ? "When assessing your <b>level of fear</b>, consider how intensely you experience anxiety in these situations. Your therapist can help you better understand and measure your anxiety patterns during this session."
+                      : "When evaluating your <b>avoidance patterns</b>, think about how consistently you steer clear of these scenarios. Your therapist can help analyze your behaviors and provide guidance on managing them effectively."
                   }}
                 />
               </div>
