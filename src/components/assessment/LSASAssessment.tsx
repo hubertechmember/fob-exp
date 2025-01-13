@@ -146,7 +146,7 @@ const LSASAssessment = () => {
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           className="bg-white p-6 rounded-lg shadow-sm space-y-6"
         >
-        <div className="space-y-2">
+          <div className="space-y-2">
           <h2 className="text-xl font-semibold text-gray-800">
             {lsasQuestions[currentStep].situation}
           </h2>
@@ -198,7 +198,8 @@ const LSASAssessment = () => {
             </div>
           </div>
         ))}
-      </div>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Admin Cheat Panel */}
       {showAdminCheat && (
