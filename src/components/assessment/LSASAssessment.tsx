@@ -157,12 +157,14 @@ const LSASAssessment = () => {
                 <button className="text-teal-600 hover:text-teal-700">
                   <HelpCircle size={20} />
                 </button>
-                <div className="absolute right-0 w-64 p-3 mt-2 text-sm bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
-                  {type === 'fear' 
-                    ? "If you're unsure about rating your fear level, discuss these specific situations with your therapist during this session to better understand your anxiety patterns."
-                    : "If you're uncertain about how often you avoid situations, your therapist can help analyze your behavioral patterns and provide guidance during this session."
-                  }
-                </div>
+                <div 
+                  className="absolute right-0 w-64 p-3 mt-2 text-sm bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10"
+                  dangerouslySetInnerHTML={{
+                    __html: type === 'fear' 
+                      ? "If you're unsure about rating your <b>level of fear</b>, discuss these specific situations with your therapist during this session. They can help you better understand and measure your anxiety patterns."
+                      : "If you're uncertain about your <b>avoidance patterns</b>, your therapist can help analyze how often you avoid situations and provide guidance on managing these behaviors."
+                  }}
+                />
               </div>
             </div>
             <div className="grid grid-cols-4 gap-2">
