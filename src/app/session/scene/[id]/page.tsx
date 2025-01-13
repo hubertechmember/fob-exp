@@ -277,12 +277,12 @@ export default function ScenePage() {
                   onClick={() => handleDifficultyChange(scenario.difficulty as 'Basic' | 'Medium' | 'Extreme')}
                   disabled={index > currentScenario}
                   className={`p-4 rounded-lg ${
-                    selectedDifficulty === level
+                    selectedDifficulty === scenario.difficulty
                       ? 'bg-teal-600 text-white'
                       : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
                   }`}
                 >
-                  {level}
+                  {scenario.difficulty}
                 </button>
               ))}
             </div>
