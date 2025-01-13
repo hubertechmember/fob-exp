@@ -22,9 +22,15 @@ const categories = [
   { id: 6, name: 'Bus/Coach', icon: '🚌' }
 ];
 
-export default function SetupContent() {
-  const [currentStep, setCurrentStep] = useState<SetupStep>(SetupStep.CATEGORY_SELECTION);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+interface SetupContentProps {
+  initialCategory?: number;
+}
+
+export default function SetupContent({ initialCategory }: SetupContentProps) {
+  const [currentStep, setCurrentStep] = useState<SetupStep>(
+    initialCategory ? SetupStep.AUDIO_VIDEO_CHECK : SetupStep.CATEGORY_SELECTION
+  );
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(initialCategory || null);
   const [initialSUD, setInitialSUD] = useState<number>(0);
   const searchParams = useSearchParams();
   const router = useRouter();

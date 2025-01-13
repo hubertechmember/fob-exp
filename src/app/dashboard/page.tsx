@@ -1,4 +1,4 @@
-import SessionQuickStart from '@/components/dashboard/SessionQuickStart';
+import CategorySelection from '@/components/dashboard/CategorySelection';
 
 export default function Dashboard() {
   return (
@@ -17,7 +17,7 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
             Let's Start Your Session
           </h1>
-          <SessionQuickStart />
+          <CategorySelection />
         </div>
       </main>
     </div>
