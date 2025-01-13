@@ -102,20 +102,42 @@ const LSASAssessment = () => {
   const canProceed = answers[currentStep]?.fear !== undefined && 
                     answers[currentStep]?.avoidance !== undefined;
 
-  if (currentStep === lsasQuestions.length - 1) {
-    const previousAnswers = {
-      completed: Object.keys(answers).length,
-      missingResponses: 0,
-      currentTotal: Object.values(answers).reduce((acc, curr) => 
-        acc + (curr.fear || 0) + (curr.avoidance || 0), 0)
-    };
+  if (currentStep === lsasQuestions.length) {
+    return (
+      <ReviewStep
+        answers={answers}
+        onModifyAnswer={(index, answer) => {
+          setAnswers(prev => ({
+            ...prev,
+            [index]: answer
+          }));
+        }}
+        onSubmit={() => {
+          const totalScore = Object.values(answers).reduce((acc, curr) => {
+            return acc + (curr.fear || 0) + (curr.avoidance || 0);
+          }, 0);
+          
+          localStorage.setItem('lsas_score', totalScore.toString());
+          localStorage.setItem('lsas_answers', JSON.stringify(answers));
+          router.push('/assessment/results');
+        }}
+        onBack={() => setCurrentStep(lsasQuestions.length - 1)}
+      />
+    );
+  }
 
+  if (currentStep === lsasQuestions.length - 1) {
     return (
       <LSASFinalStep
         onPrevious={() => setCurrentStep(prev => prev - 1)}
-        onComplete={handleComplete}
+        onComplete={(fear, avoidance) => {
+          setAnswers(prev => ({
+            ...prev,
+            [currentStep]: { fear, avoidance }
+          }));
+          setCurrentStep(lsasQuestions.length); // Go to review step
+        }}
         onSaveAndExit={handleSaveAndExit}
-        previousAnswers={previousAnswers}
       />
     );
   }
