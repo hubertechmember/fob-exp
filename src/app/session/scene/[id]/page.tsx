@@ -20,6 +20,8 @@ export default function ScenePage() {
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState<'Basic' | 'Medium' | 'Extreme'>('Basic');
+  const [watScore, setWatScore] = useState<number | null>(null);
+  const [currentScenario, setCurrentScenario] = useState<number>(0);
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
   const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
   const [vatResult, setVatResult] = useState<VATResult | null>(null);
@@ -28,23 +30,85 @@ export default function ScenePage() {
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
   const categoryId = parseInt(searchParams.get('category') || '1');
   
-  const getScenarioDetails = (categoryId: number, sceneId: string) => {
-    // This would be replaced with actual scenario data from your backend
+  const getScenarioDetails = (categoryId: number) => {
     const scenarios = {
-      1: { // Public Speaking
-        title: 'Conference Presentation',
-        description: 'Practice public speaking in a conference setting',
-        difficultyLevels: ['Basic', 'Medium', 'Extreme']
-      },
-      2: { // Public Places
-        title: 'Public Waiting Area',
-        description: 'Experience being in a busy public space',
-        difficultyLevels: ['Basic', 'Medium', 'Extreme']
-      },
+      1: [
+        {
+          id: 123405,
+          title: 'Pre-Speech Waiting',
+          description: 'Waiting for your speech to begin',
+          difficulty: 'Basic',
+          videoUrl: '/videos/public-speaking/basic/pre-speech.mp4'
+        },
+        {
+          id: 124222,
+          title: 'Pre-Speech Waiting',
+          description: 'Audience expressing expectations',
+          difficulty: 'Medium',
+          videoUrl: '/videos/public-speaking/medium/pre-speech.mp4'
+        },
+        {
+          id: 125915,
+          title: 'Pre-Speech Waiting',
+          description: 'Maximum pre-speech anxiety triggers',
+          difficulty: 'Extreme',
+          videoUrl: '/videos/public-speaking/extreme/pre-speech.mp4'
+        }
+      ],
+      2: [
+        {
+          id: 130448,
+          title: 'Corner Observer',
+          description: 'Minimal reactions in public space',
+          difficulty: 'Basic',
+          videoUrl: '/videos/public-places/basic/corner-observer.mp4'
+        },
+        {
+          id: 131256,
+          title: 'Corner Observer',
+          description: 'Moderate attention in public space',
+          difficulty: 'Medium',
+          videoUrl: '/videos/public-places/medium/corner-observer.mp4'
+        },
+        {
+          id: 132613,
+          title: 'Corner Observer',
+          description: 'Maximum social pressure',
+          difficulty: 'Extreme',
+          videoUrl: '/videos/public-places/extreme/corner-observer.mp4'
+        }
+      ]
       // Add other categories...
     };
     
     return scenarios[categoryId] || scenarios[1];
+  };
+
+  const handleDifficultyChange = (difficulty: 'Basic' | 'Medium' | 'Extreme') => {
+    setSelectedDifficulty(difficulty);
+    setCurrentScenario(getScenarioDetails(categoryId)
+      .findIndex(s => s.difficulty === difficulty));
+  };
+
+  const getNextScenario = () => {
+    const scenarios = getScenarioDetails(categoryId);
+    if (watScore !== null) {
+      if (watScore <= 30) {
+        // Progress to next difficulty
+        const nextIndex = currentScenario + 1;
+        if (nextIndex < scenarios.length) {
+          setCurrentScenario(nextIndex);
+          setSelectedDifficulty(scenarios[nextIndex].difficulty as 'Basic' | 'Medium' | 'Extreme');
+        }
+      } else if (watScore > 40) {
+        // Return to previous difficulty
+        const prevIndex = currentScenario - 1;
+        if (prevIndex >= 0) {
+          setCurrentScenario(prevIndex);
+          setSelectedDifficulty(scenarios[prevIndex].difficulty as 'Basic' | 'Medium' | 'Extreme');
+        }
+      }
+    }
   };
 
   useEffect(() => {
@@ -207,10 +271,11 @@ export default function ScenePage() {
           <div className="mb-8">
             <h3 className="text-lg font-medium text-gray-800 mb-2">Select Difficulty Level</h3>
             <div className="grid grid-cols-3 gap-4">
-              {['Basic', 'Medium', 'Extreme'].map((level) => (
+              {getScenarioDetails(categoryId).map((scenario, index) => (
                 <button
-                  key={level}
-                  onClick={() => setSelectedDifficulty(level as 'Basic' | 'Medium' | 'Extreme')}
+                  key={scenario.id}
+                  onClick={() => handleDifficultyChange(scenario.difficulty as 'Basic' | 'Medium' | 'Extreme')}
+                  disabled={index > currentScenario}
                   className={`p-4 rounded-lg ${
                     selectedDifficulty === level
                       ? 'bg-teal-600 text-white'
@@ -223,7 +288,41 @@ export default function ScenePage() {
             </div>
           </div>
 
-          {/* Scene placeholder with VAT metrics */}
+          {/* Video Player */}
+          <div className="mb-8">
+            <video 
+              key={getScenarioDetails(categoryId)[currentScenario].id}
+              controls
+              className="w-full rounded-lg"
+            >
+              <source 
+                src={getScenarioDetails(categoryId)[currentScenario].videoUrl} 
+                type="video/mp4" 
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          {/* Progress Tracker */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Progress</h3>
+            <div className="flex gap-2">
+              {getScenarioDetails(categoryId).map((scenario, index) => (
+                <div
+                  key={scenario.id}
+                  className={`h-2 flex-1 rounded-full ${
+                    index === currentScenario
+                      ? 'bg-teal-600'
+                      : index < currentScenario
+                      ? 'bg-teal-300'
+                      : 'bg-gray-200'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Scene details and VAT metrics */}
           <div className="bg-white p-8 rounded-lg border border-slate-200 text-center">
             <div className="text-4xl font-bold text-gray-800 mb-4">
               {countdown > 0 ? (
