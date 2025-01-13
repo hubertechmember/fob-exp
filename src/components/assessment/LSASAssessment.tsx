@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { lsasQuestions } from '@/data/lsasQuestions';
 import LSASFinalStep from './LSASFinalStep';
+import ReviewStep from './ReviewStep';
 
 type Answer = {
   fear: number;
