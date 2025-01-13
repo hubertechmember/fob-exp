@@ -30,58 +30,17 @@ export default function ScenePage() {
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
   const categoryId = parseInt(searchParams.get('category') || '1');
   
+  import { scenarios } from '@/data/scenarios';
+
   const getScenarioDetails = (categoryId: number) => {
-    const scenarios = {
-      1: [
-        {
-          id: 123405,
-          title: 'Pre-Speech Waiting',
-          description: 'Waiting for your speech to begin',
-          difficulty: 'Basic',
-          videoUrl: '/videos/public-speaking/basic/pre-speech.mp4'
-        },
-        {
-          id: 124222,
-          title: 'Pre-Speech Waiting',
-          description: 'Audience expressing expectations',
-          difficulty: 'Medium',
-          videoUrl: '/videos/public-speaking/medium/pre-speech.mp4'
-        },
-        {
-          id: 125915,
-          title: 'Pre-Speech Waiting',
-          description: 'Maximum pre-speech anxiety triggers',
-          difficulty: 'Extreme',
-          videoUrl: '/videos/public-speaking/extreme/pre-speech.mp4'
-        }
-      ],
-      2: [
-        {
-          id: 130448,
-          title: 'Corner Observer',
-          description: 'Minimal reactions in public space',
-          difficulty: 'Basic',
-          videoUrl: '/videos/public-places/basic/corner-observer.mp4'
-        },
-        {
-          id: 131256,
-          title: 'Corner Observer',
-          description: 'Moderate attention in public space',
-          difficulty: 'Medium',
-          videoUrl: '/videos/public-places/medium/corner-observer.mp4'
-        },
-        {
-          id: 132613,
-          title: 'Corner Observer',
-          description: 'Maximum social pressure',
-          difficulty: 'Extreme',
-          videoUrl: '/videos/public-places/extreme/corner-observer.mp4'
-        }
-      ]
-      // Add other categories...
-    };
+    const category = scenarios[categoryId as keyof typeof scenarios];
+    if (!category) return [];
     
-    return scenarios[categoryId] || scenarios[1];
+    return [
+      ...category.levels.Basic.map(s => ({ ...s, difficulty: 'Basic' })),
+      ...category.levels.Medium.map(s => ({ ...s, difficulty: 'Medium' })),
+      ...category.levels.Extreme.map(s => ({ ...s, difficulty: 'Extreme' }))
+    ];
   };
 
   const handleDifficultyChange = (difficulty: 'Basic' | 'Medium' | 'Extreme') => {

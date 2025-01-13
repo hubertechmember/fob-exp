@@ -13,14 +13,14 @@ enum SetupStep {
   SCENE_PREPARATION
 }
 
-const categories = [
-  { id: 1, name: 'Public Speaking', icon: '🎤' },
-  { id: 2, name: 'Public Places', icon: '🏢' },
-  { id: 3, name: 'Shopping', icon: '🛍️' },
-  { id: 4, name: 'Cinema Queue', icon: '🎬' },
-  { id: 5, name: 'Restaurant', icon: '🍽️' },
-  { id: 6, name: 'Bus/Coach', icon: '🚌' }
-];
+import { scenarios } from '@/data/scenarios';
+
+const categories = Object.values(scenarios).map(category => ({
+  id: category.id,
+  name: category.name,
+  icon: category.icon,
+  color: category.color
+}));
 
 interface SetupContentProps {
   initialCategory?: number;

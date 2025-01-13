@@ -25,17 +25,26 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
   const [scenes, setScenes] = useState<SceneConfig[]>([]);
   const [isAdminMode, setIsAdminMode] = useState(false);
 
+  const [adminInput, setAdminInput] = useState('');
+  
   // Admin mode detection
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'a' && e.ctrlKey && e.shiftKey) {
+      if (e.key === 'Backspace') {
+        setAdminInput(prev => prev.slice(0, -1));
+      } else if (e.key.length === 1) {
+        setAdminInput(prev => (prev + e.key).toLowerCase());
+      }
+      
+      if (adminInput.endsWith('admin')) {
         setIsAdminMode(prev => !prev);
+        setAdminInput('');
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [adminInput]);
 
   React.useEffect(() => {
     const parseScenes = () => {
