@@ -25,18 +25,11 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
   const [scenes, setScenes] = useState<SceneConfig[]>([]);
   const [isAdminMode, setIsAdminMode] = useState(false);
 
-  // Admin mode key sequence detection
+  // Admin mode detection
   useEffect(() => {
-    const keys: string[] = [];
-    
     const handleKeyDown = (e: KeyboardEvent) => {
-      keys.push(e.key.toLowerCase());
-      if (keys.length > ADMIN_KONAMI.length) {
-        keys.shift();
-      }
-      if (keys.join('') === ADMIN_KONAMI) {
-        setIsAdminMode(true);
-        setScenes(prev => enableAdminMode(prev));
+      if (e.key === 'a' && e.ctrlKey && e.shiftKey) {
+        setIsAdminMode(prev => !prev);
       }
     };
 
@@ -45,98 +38,60 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
   }, []);
 
   React.useEffect(() => {
-    // Fetch scenes based on category and recommendation
-    const fetchScenes = async () => {
-      try {
-        // In real app, this would be an API call
-        const categoryScenes = {
-          1: [ // Public Speaking
-            {
-              id: "scene1",
-              title: "Pre-Speech Waiting",
-              duration: "5 min",
-              difficulty: "Basic",
-              categoryId: 1,
-              description: "Waiting for your speech to begin",
-              minLSASScore: 0,
-              maxLSASScore: 54,
-              benefits: ["Minimal stress", "Guided experience"],
-              locked: false
-            },
-            {
-              id: "scene2",
-              title: "Audience Expectations",
-              duration: "10 min",
-              difficulty: "Medium",
-              categoryId: 1,
-              description: "Audience expressing expectations",
-              minLSASScore: 55,
-              maxLSASScore: 144,
-              benefits: ["Real-life simulation", "Confidence building"],
-              locked: false
-            },
-            {
-              id: "scene3",
-              title: "Maximum Anxiety Triggers",
-              duration: "15 min",
-              difficulty: "Extreme",
-              categoryId: 1,
-              description: "Maximum pre-speech anxiety triggers",
-              minLSASScore: 81,
-              maxLSASScore: 144,
-              benefits: ["Full immersion", "Multiple interactions"],
-              locked: false
-            }
-          ],
-          2: [ // Public Places
-            {
-              id: "scene4",
-              title: "Corner Observer",
-              duration: "5 min",
-              difficulty: "Basic",
-              categoryId: 2,
-              description: "Minimal reactions in public space",
-              minLSASScore: 0,
-              maxLSASScore: 54,
-              benefits: ["Low intensity", "Observation practice"],
-              locked: false
-            },
-            {
-              id: "scene5",
-              title: "Moderate Attention",
-              duration: "10 min",
-              difficulty: "Medium",
-              categoryId: 2,
-              description: "Moderate attention in public space",
-              minLSASScore: 55,
-              maxLSASScore: 144,
-              benefits: ["Social awareness", "Confidence building"],
-              locked: false
-            },
-            {
-              id: "scene6",
-              title: "Maximum Social Pressure",
-              duration: "15 min",
-              difficulty: "Extreme",
-              categoryId: 2,
-              description: "Maximum social pressure scenario",
-              minLSASScore: 81,
-              maxLSASScore: 144,
-              benefits: ["Full immersion", "Stress management"],
-              locked: false
-            }
-          ]
-          // Add other categories...
-        };
+    const parseScenes = () => {
+      const allScenes = [
+        // Public Speaking
+        {
+          id: "123405",
+          title: "Pre-Speech Waiting - Basic",
+          duration: "5 min",
+          difficulty: "Basic",
+          categoryId: 1,
+          description: "User as observer waiting for their speech to begin",
+          minLSASScore: 0,
+          maxLSASScore: 54,
+          benefits: ["Minimal stress", "Guided experience"],
+          locked: false
+        },
+        {
+          id: "124222",
+          title: "Pre-Speech Waiting - Medium",
+          duration: "10 min",
+          difficulty: "Medium",
+          categoryId: 1,
+          description: "Louder environment with audience expectations",
+          minLSASScore: 55,
+          maxLSASScore: 144,
+          benefits: ["Real-life simulation", "Confidence building"],
+          locked: false
+        },
+        {
+          id: "125915",
+          title: "Pre-Speech Waiting - Extreme",
+          duration: "15 min",
+          difficulty: "Extreme",
+          categoryId: 1,
+          description: "Maximum pre-speech anxiety triggers",
+          minLSASScore: 81,
+          maxLSASScore: 144,
+          benefits: ["Full immersion", "Multiple interactions"],
+          locked: false
+        },
+        // Add other scenarios from categories-videos.md...
+      ];
 
-        setScenes(categoryScenes[categoryId] || []);
-      } catch (error) {
-        console.error('Error fetching scenes:', error);
-      }
+      // Filter scenes based on category and eligibility
+      const filteredScenes = allScenes.filter(scene => 
+        scene.categoryId === categoryId &&
+        (isAdminMode || 
+          (vatScore >= scene.minLSASScore && vatScore <= scene.maxLSASScore))
+      );
+
+      setScenes(filteredScenes);
     };
 
-    fetchScenes();
-  }, [categoryId]);
+    parseScenes();
+  }, [categoryId, vatScore, isAdminMode]);
 
   // Determine which difficulty levels are available based on VAT score
   const getAvailableLevels = () => {
@@ -265,11 +220,10 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
           {/* Scene grid */}
           <div className="grid gap-6">
-            {scenes
-              .filter(scene => scene.categoryId === categoryId)
-              .map((scene) => {
-                const isAvailable = availableLevels.includes(scene.difficulty);
-                const isCompleted = completedLevels.includes(scene.difficulty);
+            {scenes.map((scene) => {
+              const isAvailable = availableLevels.includes(scene.difficulty);
+              const isCompleted = completedLevels.includes(scene.difficulty);
+              const isEligible = vatScore >= scene.minLSASScore && vatScore <= scene.maxLSASScore;
               
               return (
                 <div
@@ -308,9 +262,19 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
                     </div>
                     
                     {isAdminMode && (
-                      <div className="text-xs text-purple-600 mb-2 flex items-center gap-1">
-                        <Unlock size={12} />
-                        Admin Mode
+                      <div className="text-xs mb-2 flex flex-col gap-1">
+                        <div className="text-purple-600 flex items-center gap-1">
+                          <Unlock size={12} />
+                          Admin Mode
+                        </div>
+                        <div className={`text-xs ${
+                          isEligible ? 'text-green-600' : 'text-red-600'
+                        }`}>
+                          {isEligible ? 'Eligible' : 'Not Eligible'} for Patient
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          LSAS Range: {scene.minLSASScore}-{scene.maxLSASScore}
+                        </div>
                       </div>
                     )}
                     {isAvailable || isAdminMode ? (
