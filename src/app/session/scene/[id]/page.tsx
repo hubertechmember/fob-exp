@@ -22,6 +22,7 @@ export default function ScenePage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState<'Basic' | 'Medium' | 'Extreme'>('Basic');
   const [watScore, setWatScore] = useState<number | null>(null);
+  const [scenarioDetails, setScenarioDetails] = useState<Scenario[]>([]);
   const [currentScenario, setCurrentScenario] = useState<number>(0);
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
   const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
@@ -88,19 +89,15 @@ export default function ScenePage() {
   }, [isPlaying, countdown]);
 
   useEffect(() => {
-    // In real app, fetch scene details from API
-    setScene({
-      id: params.id as string,
-      title: 'Sample Scene',
-      duration: '5 minutes',
-      difficulty: 'Gentle',
-      category: 'Conference',
-      description: 'Sample description',
-      minLSASScore: 0,
-      maxLSASScore: 144,
-      benefits: ['Sample benefit']
-    });
-  }, [params.id]);
+    // Initialize scenario details
+    const details = getScenarioDetails(categoryId);
+    setScenarioDetails(details);
+    
+    // Set initial scene
+    if (details.length > 0) {
+      setScene(details[0]);
+    }
+  }, [categoryId]);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -184,10 +181,10 @@ export default function ScenePage() {
         <div className="container mx-auto flex justify-between items-center">
           <div>
             <h1 className="text-xl font-semibold text-gray-800">
-              {getScenarioDetails(categoryId, params.id as string).title} - {selectedDifficulty}
+              {scenarioDetails[currentScenario]?.title} - {selectedDifficulty}
             </h1>
             <p className="text-sm text-gray-600">
-              {getScenarioDetails(categoryId, params.id as string).description}
+              {scenarioDetails[currentScenario]?.description}
             </p>
           </div>
           <div className="space-x-2">
@@ -248,17 +245,19 @@ export default function ScenePage() {
 
           {/* Video Player */}
           <div className="mb-8">
-            <video 
-              key={getScenarioDetails(categoryId)[currentScenario].id}
-              controls
-              className="w-full rounded-lg"
-            >
-              <source 
-                src={getScenarioDetails(categoryId)[currentScenario].videoUrl} 
-                type="video/mp4" 
-              />
-              Your browser does not support the video tag.
-            </video>
+            {scenarioDetails.length > 0 && (
+              <video 
+                key={scenarioDetails[currentScenario].id}
+                controls
+                className="w-full rounded-lg"
+              >
+                <source 
+                  src={scenarioDetails[currentScenario].videoUrl} 
+                  type="video/mp4" 
+                />
+                Your browser does not support the video tag.
+              </video>
+            )}
           </div>
 
           {/* Progress Tracker */}
