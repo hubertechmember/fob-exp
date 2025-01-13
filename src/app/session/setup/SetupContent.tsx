@@ -55,7 +55,7 @@ export default function SetupContent() {
 
   const handleSceneStart = () => {
     // Navigate to the actual scene with the initial SUD level
-    router.push(`/session/scene/${sceneId}?initialSUD=${initialSUD}`);
+    router.push(`/session/scene/${sceneId}?initialSUD=${initialSUD}&category=${selectedCategory}`);
   };
 
   return (

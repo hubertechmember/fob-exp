@@ -19,12 +19,33 @@ export default function ScenePage() {
     lengthRatio: 0
   });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<'Basic' | 'Medium' | 'Extreme'>('Basic');
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
   const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
   const [vatResult, setVatResult] = useState<VATResult | null>(null);
   const [countdown, setCountdown] = useState(5);
   const [elapsedTime, setElapsedTime] = useState(0);
   const initialSUD = parseInt(searchParams.get('initialSUD') || '0');
+  const categoryId = parseInt(searchParams.get('category') || '1');
+  
+  const getScenarioDetails = (categoryId: number, sceneId: string) => {
+    // This would be replaced with actual scenario data from your backend
+    const scenarios = {
+      1: { // Public Speaking
+        title: 'Conference Presentation',
+        description: 'Practice public speaking in a conference setting',
+        difficultyLevels: ['Basic', 'Medium', 'Extreme']
+      },
+      2: { // Public Places
+        title: 'Public Waiting Area',
+        description: 'Experience being in a busy public space',
+        difficultyLevels: ['Basic', 'Medium', 'Extreme']
+      },
+      // Add other categories...
+    };
+    
+    return scenarios[categoryId] || scenarios[1];
+  };
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -140,8 +161,12 @@ export default function ScenePage() {
       <div className="bg-white border-b border-slate-200 px-4 py-4">
         <div className="container mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-xl font-semibold text-gray-800">{scene.title}</h1>
-            <p className="text-sm text-gray-600">Duration: {scene.duration}</p>
+            <h1 className="text-xl font-semibold text-gray-800">
+              {getScenarioDetails(categoryId, params.id as string).title} - {selectedDifficulty}
+            </h1>
+            <p className="text-sm text-gray-600">
+              {getScenarioDetails(categoryId, params.id as string).description}
+            </p>
           </div>
           <div className="space-x-2">
             <button
@@ -175,6 +200,26 @@ export default function ScenePage() {
                   You can stop or pause the session at any time.
                 </p>
               </div>
+            </div>
+          </div>
+
+          {/* Difficulty Selector */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Select Difficulty Level</h3>
+            <div className="grid grid-cols-3 gap-4">
+              {['Basic', 'Medium', 'Extreme'].map((level) => (
+                <button
+                  key={level}
+                  onClick={() => setSelectedDifficulty(level as 'Basic' | 'Medium' | 'Extreme')}
+                  className={`p-4 rounded-lg ${
+                    selectedDifficulty === level
+                      ? 'bg-teal-600 text-white'
+                      : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {level}
+                </button>
+              ))}
             </div>
           </div>
 
