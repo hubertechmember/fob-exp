@@ -134,8 +134,7 @@ const LSASAssessment = () => {
             style={{ width: `${(currentStep / (lsasQuestions.length - 1)) * 100}%` }}
           />
         </div>
-        </motion.div>
-      </AnimatePresence>
+      </div>
 
       {/* Question card */}
       <AnimatePresence mode="wait">
