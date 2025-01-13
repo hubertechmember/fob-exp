@@ -7,13 +7,24 @@ import SUDLevelsSetup from '@/components/session/SUDLevelsSetup';
 import ScenePreparation from '@/components/session/ScenePreparation';
 
 enum SetupStep {
+  CATEGORY_SELECTION,
   AUDIO_VIDEO_CHECK,
   SUD_LEVELS,
   SCENE_PREPARATION
 }
 
+const categories = [
+  { id: 1, name: 'Public Speaking', icon: '🎤' },
+  { id: 2, name: 'Public Places', icon: '🏢' },
+  { id: 3, name: 'Shopping', icon: '🛍️' },
+  { id: 4, name: 'Cinema Queue', icon: '🎬' },
+  { id: 5, name: 'Restaurant', icon: '🍽️' },
+  { id: 6, name: 'Bus/Coach', icon: '🚌' }
+];
+
 export default function SetupContent() {
-  const [currentStep, setCurrentStep] = useState<SetupStep>(SetupStep.AUDIO_VIDEO_CHECK);
+  const [currentStep, setCurrentStep] = useState<SetupStep>(SetupStep.CATEGORY_SELECTION);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [initialSUD, setInitialSUD] = useState<number>(0);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -49,6 +60,27 @@ export default function SetupContent() {
 
   return (
     <>
+      {currentStep === SetupStep.CATEGORY_SELECTION && (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-gray-800">Select a Scenario Category</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {categories.map(category => (
+              <button
+                key={category.id}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setCurrentStep(SetupStep.AUDIO_VIDEO_CHECK);
+                }}
+                className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-2"
+              >
+                <span className="text-3xl">{category.icon}</span>
+                <span className="text-lg font-medium text-gray-800">{category.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {currentStep === SetupStep.AUDIO_VIDEO_CHECK && (
         <AudioVideoCheck onComplete={handleAudioVideoComplete} />
       )}
@@ -61,6 +93,7 @@ export default function SetupContent() {
         <ScenePreparation 
           scene={mockScene}
           onStart={handleSceneStart}
+          categoryId={selectedCategory}
         />
       )}
     </>

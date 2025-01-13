@@ -7,7 +7,59 @@ import type { SceneConfig } from '@/types/scenes';
 interface ScenePreparationProps {
   scene: SceneConfig;
   onStart: () => void;
+  categoryId: number | null;
 }
+
+const categoryDescriptions = {
+  1: {
+    title: 'Public Speaking Preparation',
+    tips: [
+      'Practice deep breathing exercises before starting',
+      'Visualize yourself succeeding in the scenario',
+      'Remember it\'s okay to pause and collect your thoughts'
+    ]
+  },
+  2: {
+    title: 'Public Places Preparation',
+    tips: [
+      'Focus on your breathing to stay calm',
+      'Remember most people are focused on themselves',
+      'Use grounding techniques if feeling overwhelmed'
+    ]
+  },
+  3: {
+    title: 'Shopping Preparation',
+    tips: [
+      'Have a clear goal for your shopping trip',
+      'Practice polite but firm communication',
+      'Remember you can always step away if needed'
+    ]
+  },
+  4: {
+    title: 'Cinema Queue Preparation',
+    tips: [
+      'Prepare your payment method in advance',
+      'Practice patience and mindfulness',
+      'Remember queues are a normal part of life'
+    ]
+  },
+  5: {
+    title: 'Restaurant Preparation',
+    tips: [
+      'Review the menu beforehand if possible',
+      'Practice ordering in your mind',
+      'Remember staff are there to help you'
+    ]
+  },
+  6: {
+    title: 'Bus/Coach Preparation',
+    tips: [
+      'Have your ticket/payment ready',
+      'Choose a seat that feels comfortable',
+      'Use headphones if you need personal space'
+    ]
+  }
+};
 
 const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) => {
   const [countdown, setCountdown] = useState(5);
@@ -32,11 +84,22 @@ const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) =
     <div className="space-y-8">
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-800">
-          Before We Begin
+          {categoryDescriptions[props.categoryId || 1].title}
         </h2>
         <p className="text-gray-600">
-          Please take a moment to review these important points:
+          Here are some tips to help you prepare:
         </p>
+      </div>
+
+      <div className="space-y-4">
+        {categoryDescriptions[props.categoryId || 1].tips.map((tip, index) => (
+          <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 flex gap-3">
+            <ShieldCheck className="text-teal-600 flex-shrink-0" />
+            <div>
+              <p className="text-sm text-gray-600">{tip}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="space-y-4">
