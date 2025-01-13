@@ -45,13 +45,6 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
         </div>
       </div>
 
-      {/* Quick summary card */}
-      <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
-        <div className="flex items-center gap-2 text-teal-800">
-          <CheckCircle size={20} />
-          <span className="font-medium">Almost done! You've answered 23 out of 24 situations.</span>
-        </div>
-      </div>
 
       {/* Current situation */}
       <div className="bg-white p-6 rounded-lg shadow-sm space-y-6">
@@ -117,22 +110,6 @@ const LSASFinalStep = ({ onPrevious, onComplete, onSaveAndExit, previousAnswers 
         </div>
       </div>
 
-      {/* Review notice */}
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <div className="flex items-start gap-3">
-          <AlertCircle className="text-blue-600 mt-1" size={20} />
-          <div className="space-y-1">
-            <p className="text-blue-800 font-medium">
-              Before finishing you can:
-            </p>
-            <ul className="text-sm text-blue-700 list-disc list-inside">
-              <li>Review your previous answers using the "Previous" button</li>
-              <li>Save your progress and return later</li>
-              <li>Complete the test and see your results</li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
       {/* Navigation buttons */}
       <div className="flex justify-between items-center">
