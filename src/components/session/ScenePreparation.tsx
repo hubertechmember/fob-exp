@@ -61,7 +61,7 @@ const categoryDescriptions = {
   }
 };
 
-const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) => {
+const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart, categoryId }) => {
   const [countdown, setCountdown] = useState(5);
   const [showStartButton, setShowStartButton] = useState(false);
 
@@ -84,7 +84,7 @@ const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) =
     <div className="space-y-8">
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-800">
-          {categoryDescriptions[props.categoryId || 1].title}
+          {categoryDescriptions[categoryId || 1].title}
         </h2>
         <p className="text-gray-600">
           Here are some tips to help you prepare:
@@ -92,7 +92,7 @@ const ScenePreparation: React.FC<ScenePreparationProps> = ({ scene, onStart }) =
       </div>
 
       <div className="space-y-4">
-        {categoryDescriptions[props.categoryId || 1].tips.map((tip, index) => (
+        {categoryDescriptions[categoryId || 1].tips.map((tip, index) => (
           <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 flex gap-3">
             <ShieldCheck className="text-teal-600 flex-shrink-0" />
             <div>
