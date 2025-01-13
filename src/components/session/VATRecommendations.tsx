@@ -16,7 +16,10 @@ interface VATRecommendationsProps {
 
 const VATRecommendations: React.FC<VATRecommendationsProps> = ({ 
   vatScore, 
-  recommendation 
+  recommendation,
+  categoryId,
+  scenarioId,
+  completedLevels 
 }) => {
   const router = useRouter();
   const [scenes, setScenes] = useState<SceneConfig[]>([]);
