@@ -22,7 +22,41 @@ export default function ScenePage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState<'Basic' | 'Medium' | 'Extreme'>('Basic');
   const [watScore, setWatScore] = useState<number | null>(null);
-  const [scenarioDetails, setScenarioDetails] = useState<Scenario[]>([]);
+  const [scenarioDetails, setScenarioDetails] = useState<Scenario[]>([
+    {
+      id: "123405",
+      title: "Pre-Speech Waiting",
+      duration: "5 min",
+      description: "User as observer waiting for their speech to begin",
+      minLSASScore: 0,
+      maxLSASScore: 54,
+      benefits: ["Minimal stress", "Guided experience"],
+      videoUrl: '/videos/public-speaking/basic/pre-speech.mp4',
+      difficulty: 'Basic'
+    },
+    {
+      id: "124222",
+      title: "Pre-Speech Waiting",
+      description: "Audience expressing expectations",
+      duration: "10 min",
+      minLSASScore: 55,
+      maxLSASScore: 144,
+      benefits: ["Real-life simulation", "Confidence building"],
+      videoUrl: '/videos/public-speaking/medium/pre-speech.mp4',
+      difficulty: 'Medium'
+    },
+    {
+      id: "125915",
+      title: "Pre-Speech Waiting",
+      description: "Maximum pre-speech anxiety triggers",
+      duration: "15 min",
+      minLSASScore: 81,
+      maxLSASScore: 144,
+      benefits: ["Full immersion", "Multiple interactions"],
+      videoUrl: '/videos/public-speaking/extreme/pre-speech.mp4',
+      difficulty: 'Extreme'
+    }
+  ]);
   const [currentScenario, setCurrentScenario] = useState<number>(0);
   const [showSUDPrompt, setShowSUDPrompt] = useState(false);
   const [vatMetrics, setVatMetrics] = useState<VATMetrics | null>(null);
@@ -89,15 +123,11 @@ export default function ScenePage() {
   }, [isPlaying, countdown]);
 
   useEffect(() => {
-    // Initialize scenario details
-    const details = getScenarioDetails(categoryId);
-    setScenarioDetails(details);
-    
     // Set initial scene
-    if (details.length > 0) {
-      setScene(details[0]);
+    if (scenarioDetails.length > 0) {
+      setScene(scenarioDetails[0]);
     }
-  }, [categoryId]);
+  }, []);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -156,7 +186,14 @@ export default function ScenePage() {
   };
 
   if (!scene) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+          <p className="mt-4 text-gray-600">Loading scenario...</p>
+        </div>
+      </div>
+    );
   }
 
   if (showSUDPrompt) {
