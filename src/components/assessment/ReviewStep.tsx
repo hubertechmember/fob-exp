@@ -11,7 +11,7 @@ interface ReviewStepProps {
 }
 
 const ReviewStep = ({ answers, onModifyAnswer, onSubmit, onBack }: ReviewStepProps) => {
-  const lsasQuestions = require('@/data/lsasQuestions').default;
+  import { lsasQuestions } from '@/data/lsasQuestions';
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
