@@ -6,8 +6,9 @@ const Disclaimer = () => {
       <div className="flex">
         <div className="ml-3">
           <p className="text-sm text-yellow-700">
-            <strong>Important:</strong> This product is intended for use under the supervision of a qualified therapist. 
-            Using the application independently is at your own risk and may not achieve the expected therapeutic results.
+            For best results, we recommend using this application in collaboration with a mental health professional. 
+            While the tools provided can be helpful for self-guided practice, working with a therapist can help ensure 
+            you get the most benefit from the program.
           </p>
         </div>
       </div>

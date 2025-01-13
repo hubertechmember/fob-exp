@@ -17,8 +17,10 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         <ProgressSteps currentStep={1} totalSteps={4} />
         <div className="max-w-3xl mx-auto bg-white rounded-lg border border-slate-200 p-8">
-          <Disclaimer />
           <InitialAssessment />
+          <div className="mt-8">
+            <Disclaimer />
+          </div>
         </div>
       </main>
     </div>
