@@ -99,7 +99,7 @@ const SessionQuickStart = () => {
           id: "131256",
           title: "Corner Observer (Moderate)",
           duration: "5 min",
-          difficulty: "Moderate",
+          difficulty: "Medium",
           category: "WaitingRoom",
           description: "Handle phone interactions with some attention from others.",
           minLSASScore: 55,
