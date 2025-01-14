@@ -10,7 +10,12 @@ interface ScenePreparationProps {
   categoryId: number | null;
 }
 
-const categoryDescriptions = {
+interface CategoryDescription {
+  title: string;
+  tips: string[];
+}
+
+const categoryDescriptions: { [key: number]: CategoryDescription } = {
   1: {
     title: 'Public Speaking Preparation',
     tips: [
