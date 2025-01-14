@@ -251,8 +251,8 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
                       <div className="flex gap-4 text-sm text-gray-600 mt-1">
                         <span>{scene.duration}</span>
                         <span className={
-                          scene.difficulty === "Gentle" ? "text-green-600" :
-                          scene.difficulty === "Moderate" ? "text-orange-600" :
+                          scene.difficulty === "Basic" ? "text-green-600" :
+                          scene.difficulty === "Medium" ? "text-orange-600" :
                           "text-red-600"
                         }>
                           {scene.difficulty}
