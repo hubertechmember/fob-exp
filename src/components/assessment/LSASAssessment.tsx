@@ -139,6 +139,12 @@ const LSASAssessment = () => {
           setCurrentStep(lsasQuestions.length); // Go to review step
         }}
         onSaveAndExit={handleSaveAndExit}
+        previousAnswers={{
+          completed: Object.keys(answers).length,
+          missingResponses: lsasQuestions.length - Object.keys(answers).length,
+          currentTotal: Object.values(answers).reduce((acc, curr) => 
+            acc + (curr.fear || 0) + (curr.avoidance || 0), 0)
+        }}
       />
     );
   }
