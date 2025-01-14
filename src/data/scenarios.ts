@@ -92,5 +92,7 @@ export const scenarios = {
   // Add other categories...
 };
 
-export type Scenario = typeof scenarios[1]['levels']['Basic'][0];
+export type Scenario = typeof scenarios[1]['levels']['Basic'][0] & {
+  difficulty: 'Basic' | 'Medium' | 'Extreme';
+};
 export type Category = keyof typeof scenarios;
