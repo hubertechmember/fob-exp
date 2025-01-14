@@ -7,7 +7,7 @@ import SUDLevelsSetup from '@/components/session/SUDLevelsSetup';
 import type { SceneConfig } from '@/types/scenes';
 import type { SceneSession, VATMetrics, VATResult } from '@/types/vat';
 import { calculateVATScore } from '@/utils/vatCalculator';
-import { scenarios } from '@/data/scenarios';
+import { scenarios, Scenario } from '@/data/scenarios';
 
 export default function ScenePage() {
   const params = useParams();
