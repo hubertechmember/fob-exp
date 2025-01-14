@@ -94,7 +94,7 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
       // Filter scenes based on category and eligibility
       const filteredScenes = allScenes.filter(scene => 
-        scene.categoryId === categoryId &&
+        scene.category === (categoryId === 1 ? 'Conference' : 'WaitingRoom') &&
         (isAdminMode || 
           (vatScore >= scene.minLSASScore && vatScore <= scene.maxLSASScore))
       );
