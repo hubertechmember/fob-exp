@@ -211,19 +211,19 @@ const SessionQuickStart = () => {
                       <Star 
                         size={16} 
                         className={
-                          scenario.difficulty === "Gentle" ? "text-green-500" :
-                          scenario.difficulty === "Moderate" ? "text-orange-500" :
+                          scenario.difficulty === "Basic" ? "text-green-500" :
+                          scenario.difficulty === "Medium" ? "text-orange-500" :
                           "text-red-500"
                         }
                         fill={
-                          scenario.difficulty === "Gentle" ? "#22c55e" :
-                          scenario.difficulty === "Moderate" ? "#f97316" :
+                          scenario.difficulty === "Basic" ? "#22c55e" :
+                          scenario.difficulty === "Medium" ? "#f97316" :
                           "#ef4444"
                         }
                       />
                       <span className={
-                        scenario.difficulty === "Gentle" ? "text-green-700" :
-                        scenario.difficulty === "Moderate" ? "text-orange-700" :
+                        scenario.difficulty === "Basic" ? "text-green-700" :
+                        scenario.difficulty === "Medium" ? "text-orange-700" :
                         "text-red-700"
                       }>
                         {scenario.difficulty}
