@@ -47,7 +47,8 @@ export default function SetupContent({ initialCategory }: SetupContentProps) {
     description: 'Sample description',
     minLSASScore: 0,
     maxLSASScore: 144,
-    benefits: ['Sample benefit']
+    benefits: ['Sample benefit'],
+    videoUrl: '/videos/conference/basic/sample-scene.mp4'
   };
 
   const handleAudioVideoComplete = () => {
