@@ -42,7 +42,7 @@ export default function SetupContent({ initialCategory }: SetupContentProps) {
     id: sceneId || '',
     title: 'Sample Scene',
     duration: '5 minutes',
-    difficulty: 'Gentle' as const,
+    difficulty: 'Basic' as const,
     category: 'Conference' as const,
     description: 'Sample description',
     minLSASScore: 0,
