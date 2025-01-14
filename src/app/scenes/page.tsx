@@ -19,7 +19,7 @@ export default function ScenesPage() {
         id: "scene1",
         title: "Quiet Observation",
         duration: "5 min",
-        difficulty: "Gentle",
+        difficulty: "Basic",
         category: "Conference",
         description: "A calm environment for initial exposure",
         minLSASScore: 0,
