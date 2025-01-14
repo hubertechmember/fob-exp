@@ -8,6 +8,7 @@ export interface SceneConfig {
   benefits: string[];
   videoUrl: string;
   difficulty: 'Basic' | 'Medium' | 'Extreme';
+  category: 'Conference' | 'WaitingRoom';
   locked?: boolean;
 }
 
