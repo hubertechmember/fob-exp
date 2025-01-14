@@ -32,7 +32,8 @@ export default function ScenePage() {
       maxLSASScore: 54,
       benefits: ["Minimal stress", "Guided experience"],
       videoUrl: '/videos/public-speaking/basic/pre-speech.mp4',
-      difficulty: 'Basic'
+      difficulty: 'Basic',
+      category: 'Conference'
     },
     {
       id: "124222",
@@ -43,7 +44,8 @@ export default function ScenePage() {
       maxLSASScore: 144,
       benefits: ["Real-life simulation", "Confidence building"],
       videoUrl: '/videos/public-speaking/medium/pre-speech.mp4',
-      difficulty: 'Medium'
+      difficulty: 'Medium',
+      category: 'Conference'
     },
     {
       id: "125915",
@@ -54,7 +56,8 @@ export default function ScenePage() {
       maxLSASScore: 144,
       benefits: ["Full immersion", "Multiple interactions"],
       videoUrl: '/videos/public-speaking/extreme/pre-speech.mp4',
-      difficulty: 'Extreme'
+      difficulty: 'Extreme',
+      category: 'Conference'
     }
   ]);
   const [currentScenario, setCurrentScenario] = useState<number>(0);
