@@ -2,12 +2,12 @@ export interface SceneConfig {
   id: string;
   title: string;
   duration: string;
-  difficulty: 'Gentle' | 'Moderate' | 'Challenging';
-  category: 'Conference' | 'WaitingRoom';
   description: string;
   minLSASScore: number;
   maxLSASScore: number;
   benefits: string[];
+  videoUrl: string;
+  difficulty: 'Basic' | 'Medium' | 'Extreme';
   locked?: boolean;
 }
 
