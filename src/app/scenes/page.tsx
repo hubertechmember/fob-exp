@@ -32,7 +32,7 @@ export default function ScenesPage() {
         id: "scene2",
         title: "Active Participation",
         duration: "10 min",
-        difficulty: "Challenging",
+        difficulty: "Extreme",
         category: "Conference",
         description: "More engaging scenario",
         minLSASScore: 55,
