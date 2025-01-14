@@ -63,6 +63,7 @@ const SessionQuickStart = () => {
           minLSASScore: 0,
           maxLSASScore: 54,
           benefits: ["Calm environment", "Minimal distractions", "Therapist supported"],
+          videoUrl: '/videos/conference/basic/quiet-observation.mp4',
           locked: false
         },
         {
@@ -75,6 +76,7 @@ const SessionQuickStart = () => {
           minLSASScore: 0,
           maxLSASScore: 54,
           benefits: ["Quiet environment", "Comfortable position", "Therapist supported"],
+          videoUrl: '/videos/waiting-room/basic/corner-observer.mp4',
           locked: false
         }
       ];
@@ -90,6 +92,7 @@ const SessionQuickStart = () => {
           minLSASScore: 55,
           maxLSASScore: 80,
           benefits: ["Realistic setting", "Moderate challenge", "Therapist supported"],
+          videoUrl: '/videos/conference/medium/pre-presentation-waiting.mp4',
           locked: false
         },
         {
@@ -102,6 +105,7 @@ const SessionQuickStart = () => {
           minLSASScore: 55,
           maxLSASScore: 80,
           benefits: ["Natural setting", "Moderate attention", "Therapist supported"],
+          videoUrl: '/videos/waiting-room/medium/corner-observer.mp4',
           locked: false
         }
       ];
@@ -117,6 +121,7 @@ const SessionQuickStart = () => {
           minLSASScore: 81,
           maxLSASScore: 144,
           benefits: ["Complex environment", "Multiple distractions", "Therapist supported"],
+          videoUrl: '/videos/conference/extreme/pre-presentation-waiting.mp4',
           locked: true
         },
         {
@@ -129,6 +134,7 @@ const SessionQuickStart = () => {
           minLSASScore: 81,
           maxLSASScore: 144,
           benefits: ["High engagement", "Multiple interactions", "Therapist supported"],
+          videoUrl: '/videos/waiting-room/extreme/corner-observer.mp4',
           locked: true
         }
       ];
