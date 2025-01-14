@@ -48,18 +48,19 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
 
   React.useEffect(() => {
     const parseScenes = () => {
-      const allScenes = [
+      const allScenes: SceneConfig[] = [
         // Public Speaking
         {
           id: "123405",
           title: "Pre-Speech Waiting - Basic",
           duration: "5 min",
           difficulty: "Basic",
-          categoryId: 1,
+          category: "Conference",
           description: "User as observer waiting for their speech to begin",
           minLSASScore: 0,
           maxLSASScore: 54,
           benefits: ["Minimal stress", "Guided experience"],
+          videoUrl: '/videos/conference/basic/pre-speech.mp4',
           locked: false
         },
         {
@@ -67,11 +68,12 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
           title: "Pre-Speech Waiting - Medium",
           duration: "10 min",
           difficulty: "Medium",
-          categoryId: 1,
+          category: "Conference",
           description: "Louder environment with audience expectations",
           minLSASScore: 55,
           maxLSASScore: 144,
           benefits: ["Real-life simulation", "Confidence building"],
+          videoUrl: '/videos/conference/medium/pre-speech.mp4',
           locked: false
         },
         {
@@ -79,11 +81,12 @@ const VATRecommendations: React.FC<VATRecommendationsProps> = ({
           title: "Pre-Speech Waiting - Extreme",
           duration: "15 min",
           difficulty: "Extreme",
-          categoryId: 1,
+          category: "Conference",
           description: "Maximum pre-speech anxiety triggers",
           minLSASScore: 81,
           maxLSASScore: 144,
           benefits: ["Full immersion", "Multiple interactions"],
+          videoUrl: '/videos/conference/extreme/pre-speech.mp4',
           locked: false
         },
         // Add other scenarios from categories-videos.md...
