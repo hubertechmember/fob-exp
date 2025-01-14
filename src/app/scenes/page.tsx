@@ -25,6 +25,7 @@ export default function ScenesPage() {
         minLSASScore: 0,
         maxLSASScore: 54,
         benefits: ["Minimal stress", "Guided experience"],
+        videoUrl: '/videos/conference/basic/quiet-observation.mp4',
         locked: false
       },
       {
@@ -37,6 +38,7 @@ export default function ScenesPage() {
         minLSASScore: 55,
         maxLSASScore: 144,
         benefits: ["Real-life simulation", "Confidence building"],
+        videoUrl: '/videos/conference/challenging/active-participation.mp4',
         locked: true
       }
     ]);
